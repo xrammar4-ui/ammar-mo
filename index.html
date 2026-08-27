@@ -1,0 +1,1717 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AM1 Domin — Premium domains, ready to point</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Inter:wght@400;500;600&family=Cairo:wght@400;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --primary: #cc785c;
+      --primary-active: #a9583e;
+      --primary-disabled: #e6dfd8;
+      --ink: #141413;
+      --body: #3d3d3a;
+      --body-strong: #252523;
+      --muted: #6c6a64;
+      --muted-soft: #8e8b82;
+      --hairline: #e6dfd8;
+      --hairline-soft: #ebe6df;
+      --canvas: #faf9f5;
+      --surface-soft: #f5f0e8;
+      --surface-card: #efe9de;
+      --surface-cream-strong: #e8e0d2;
+      --surface-dark: #181715;
+      --surface-dark-elevated: #252320;
+      --surface-dark-soft: #1f1e1b;
+      --on-primary: #ffffff;
+      --on-dark: #faf9f5;
+      --on-dark-soft: #a09d96;
+      --accent-teal: #5db8a6;
+      --success: #5db872;
+      --error: #c64545;
+      --radius-sm: 6px;
+      --radius-md: 8px;
+      --radius-lg: 12px;
+      --radius-xl: 16px;
+      --radius-pill: 9999px;
+      --shadow-soft: 0 1px 3px rgba(20, 20, 19, 0.06);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: "Inter", "Cairo", system-ui, -apple-system, sans-serif;
+      background: var(--canvas);
+      color: var(--ink);
+      line-height: 1.55;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      font-size: 16px;
+      font-weight: 400;
+    }
+
+    html[dir="rtl"] body {
+      font-family: "Cairo", "Inter", system-ui, sans-serif;
+    }
+
+    a { color: inherit; text-decoration: none; }
+    .container { width: min(1120px, calc(100% - 40px)); margin: 0 auto; }
+
+    .nav {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      background: rgba(250, 249, 245, 0.92);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--hairline);
+      height: 64px;
+    }
+
+    .nav-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 64px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-family: "Cormorant Garamond", "Times New Roman", serif;
+      font-weight: 500;
+      font-size: 1.4rem;
+      letter-spacing: -0.03em;
+      color: var(--ink);
+    }
+
+    .brand-mark {
+      width: 18px;
+      height: 18px;
+      color: var(--ink);
+      flex-shrink: 0;
+    }
+
+    .admin-only { display: none !important; }
+    .admin-only.show-admin { display: inline-flex !important; }
+
+    .lang-wrap { position: relative; }
+
+    .lang-btn {
+      width: 36px;
+      height: 36px;
+      border: 1px solid var(--hairline);
+      background: var(--canvas);
+      border-radius: 50%;
+      cursor: pointer;
+      color: var(--ink);
+      display: grid;
+      place-items: center;
+    }
+
+    .lang-btn:hover { background: var(--surface-soft); }
+    .lang-btn svg {
+      width: 18px;
+      height: 18px;
+      stroke: var(--ink);
+      fill: none;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    .lang-menu {
+      display: none;
+      position: absolute;
+      top: calc(100% + 8px);
+      inset-inline-end: 0;
+      background: var(--canvas);
+      border: 1px solid var(--hairline);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-soft);
+      min-width: 180px;
+      padding: 6px;
+      z-index: 60;
+    }
+
+    .lang-wrap.open .lang-menu { display: block; }
+
+    .lang-menu button {
+      width: 100%;
+      text-align: start;
+      background: none;
+      border: none;
+      font: inherit;
+      font-size: 14px;
+      font-weight: 500;
+      padding: 10px 12px;
+      border-radius: var(--radius-md);
+      cursor: pointer;
+      color: var(--ink);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .lang-menu button:hover,
+    .lang-menu button.active { background: var(--surface-card); }
+
+    .lang-menu button .flag {
+      width: 22px;
+      height: 16px;
+      border-radius: 2px;
+      overflow: hidden;
+      flex-shrink: 0;
+      border: 1px solid rgba(0,0,0,0.08);
+      display: block;
+    }
+
+    .lang-menu button .flag svg { width: 100%; height: 100%; display: block; }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .nav-links a, .nav-links button.nav-link {
+      padding: 8px 14px;
+      border-radius: var(--radius-md);
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--muted);
+      transition: 0.15s ease;
+      background: none;
+      border: none;
+      cursor: pointer;
+      font-family: inherit;
+    }
+
+    .nav-links a:hover,
+    .nav-links a.active,
+    .nav-links button.nav-link:hover {
+      color: var(--ink);
+      background: var(--surface-card);
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      border: none;
+      cursor: pointer;
+      font-family: inherit;
+      font-weight: 500;
+      font-size: 14px;
+      border-radius: 999px;
+      padding: 11px 24px;
+      height: 42px;
+      transition: background 0.18s ease, transform 0.15s ease, box-shadow 0.18s ease;
+      line-height: 1;
+      letter-spacing: 0.01em;
+    }
+
+    .btn-primary {
+      background: var(--ink);
+      color: var(--on-dark);
+      box-shadow: none;
+    }
+    .btn-primary:hover {
+      background: #2a2926;
+      transform: translateY(-1px);
+      box-shadow: 0 4px 12px rgba(20, 20, 19, 0.12);
+    }
+
+    .btn-ghost {
+      background: transparent;
+      color: var(--ink);
+      border: 1px solid var(--hairline);
+      border-radius: 999px;
+    }
+    .btn-ghost:hover {
+      background: var(--surface-soft);
+      border-color: var(--surface-cream-strong);
+    }
+
+    .btn-danger {
+      background: #f5e6e4;
+      color: var(--error);
+    }
+    .btn-danger:hover { background: #edd5d2; }
+
+    .btn-sm {
+      padding: 7px 12px;
+      height: auto;
+      font-size: 13px;
+    }
+
+    .hero { padding: 96px 0 64px; }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--surface-card);
+      color: var(--ink);
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      padding: 4px 12px;
+      border-radius: var(--radius-pill);
+      margin-bottom: 20px;
+    }
+
+    .hero h1 {
+      font-family: "Cormorant Garamond", "Times New Roman", serif;
+      font-size: clamp(2.25rem, 5vw, 3.75rem);
+      font-weight: 400;
+      line-height: 1.08;
+      letter-spacing: -0.03em;
+      max-width: 720px;
+      margin-bottom: 20px;
+      color: var(--ink);
+    }
+
+    html[dir="rtl"] .hero h1 {
+      font-family: "Cairo", "Cormorant Garamond", serif;
+      font-weight: 700;
+      letter-spacing: 0;
+    }
+
+    .hero p.lead {
+      font-size: 1.05rem;
+      color: var(--body);
+      max-width: 540px;
+      margin-bottom: 32px;
+      line-height: 1.6;
+    }
+
+    .hero-actions { display: flex; gap: 12px; flex-wrap: wrap; }
+
+    section { padding: 80px 0; }
+
+    .section-head { margin-bottom: 32px; }
+
+    .section-head h2 {
+      font-family: "Cormorant Garamond", "Times New Roman", serif;
+      font-size: clamp(1.75rem, 3vw, 2.25rem);
+      font-weight: 400;
+      letter-spacing: -0.02em;
+      margin-bottom: 10px;
+      color: var(--ink);
+      line-height: 1.15;
+    }
+
+    html[dir="rtl"] .section-head h2 {
+      font-family: "Cairo", serif;
+      font-weight: 700;
+      letter-spacing: 0;
+    }
+
+    .section-head p {
+      color: var(--muted);
+      max-width: 520px;
+      font-size: 1rem;
+    }
+
+    .grid-3 {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+
+    .feature {
+      background: var(--surface-card);
+      border-radius: var(--radius-lg);
+      padding: 32px;
+    }
+
+    .feature-icon {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: rgba(204, 120, 92, 0.12);
+      color: var(--primary);
+      display: grid;
+      place-items: center;
+      margin-bottom: 16px;
+      font-weight: 600;
+      font-size: 0.8rem;
+      border: none;
+      font-family: "Cormorant Garamond", serif;
+    }
+
+    .feature h3 {
+      font-size: 1.1rem;
+      font-weight: 500;
+      margin-bottom: 8px;
+      color: var(--ink);
+    }
+
+    .feature p {
+      color: var(--body);
+      font-size: 0.95rem;
+      line-height: 1.55;
+    }
+
+    .steps {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+    }
+
+    .step {
+      padding: 24px;
+      border-radius: var(--radius-lg);
+      background: var(--surface-soft);
+      border: 1px solid var(--hairline);
+    }
+
+    .step-n {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: transparent;
+      color: var(--primary);
+      font-size: 0.85rem;
+      font-weight: 600;
+      display: grid;
+      place-items: center;
+      margin-bottom: 14px;
+      border: 1.5px solid var(--primary);
+      font-family: "Cormorant Garamond", serif;
+    }
+
+    .step h3 {
+      font-size: 0.95rem;
+      font-weight: 500;
+      margin-bottom: 6px;
+      color: var(--ink);
+    }
+
+    .step p {
+      font-size: 0.88rem;
+      color: var(--muted);
+      line-height: 1.5;
+    }
+
+    .toolbar {
+      display: flex;
+      gap: 12px;
+      margin-bottom: 24px;
+      flex-wrap: wrap;
+    }
+
+    .search {
+      flex: 1;
+      min-width: 220px;
+      border: 1px solid var(--hairline);
+      border-radius: var(--radius-md);
+      padding: 10px 14px;
+      height: 40px;
+      font: inherit;
+      font-size: 15px;
+      background: var(--canvas);
+      color: var(--ink);
+    }
+
+    .search:focus {
+      outline: none;
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px rgba(204, 120, 92, 0.15);
+    }
+
+    .domain-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 16px;
+    }
+
+    .domain-card {
+      border: 1px solid var(--hairline);
+      border-radius: 14px;
+      padding: 22px 24px;
+      background: var(--canvas);
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      transition: border-color 0.18s ease, box-shadow 0.18s ease;
+    }
+
+    .domain-card:hover {
+      border-color: var(--surface-cream-strong);
+      box-shadow: 0 4px 14px rgba(20, 20, 19, 0.04);
+    }
+
+    .domain-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 8px;
+    }
+
+    .domain-name {
+      font-weight: 600;
+      font-size: 1.1rem;
+      letter-spacing: -0.02em;
+      word-break: break-all;
+      color: var(--ink);
+    }
+
+    .badge {
+      font-size: 12px;
+      font-weight: 500;
+      padding: 4px 10px;
+      border-radius: var(--radius-pill);
+      white-space: nowrap;
+    }
+
+    .badge-ok {
+      background: rgba(93, 184, 114, 0.15);
+      color: #2d6b3a;
+    }
+
+    .badge-taken {
+      background: rgba(198, 69, 69, 0.12);
+      color: var(--error);
+    }
+
+    .domain-meta {
+      font-size: 0.9rem;
+      color: var(--muted);
+      flex: 1;
+      line-height: 1.5;
+    }
+
+    .form-card {
+      max-width: 440px;
+      margin: 64px auto;
+      border: 1px solid var(--hairline);
+      border-radius: var(--radius-xl);
+      padding: 36px;
+      background: var(--canvas);
+    }
+
+    .form-card h1 {
+      font-family: "Cormorant Garamond", serif;
+      font-size: 1.75rem;
+      font-weight: 400;
+      letter-spacing: -0.02em;
+      margin-bottom: 8px;
+      color: var(--ink);
+    }
+
+    html[dir="rtl"] .form-card h1 {
+      font-family: "Cairo", serif;
+      font-weight: 700;
+    }
+
+    .form-card .sub {
+      color: var(--muted);
+      margin-bottom: 28px;
+      font-size: 0.95rem;
+    }
+
+    label {
+      display: block;
+      font-size: 13px;
+      font-weight: 500;
+      margin-bottom: 6px;
+      color: var(--body-strong);
+    }
+
+    input, textarea, select {
+      width: 100%;
+      border: 1px solid var(--hairline);
+      border-radius: var(--radius-md);
+      padding: 10px 14px;
+      font: inherit;
+      font-size: 15px;
+      background: var(--canvas);
+      color: var(--ink);
+      margin-bottom: 14px;
+      height: 40px;
+    }
+
+    textarea {
+      height: auto;
+      min-height: 96px;
+      resize: vertical;
+    }
+
+    input:focus, textarea:focus, select:focus {
+      outline: none;
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px rgba(204, 120, 92, 0.15);
+    }
+
+    .alert {
+      padding: 10px 14px;
+      border-radius: var(--radius-md);
+      font-size: 0.88rem;
+      margin-bottom: 14px;
+    }
+
+    .alert-error {
+      background: rgba(198, 69, 69, 0.1);
+      color: var(--error);
+    }
+
+    .alert-ok {
+      background: rgba(93, 184, 114, 0.12);
+      color: #2d6b3a;
+    }
+
+    .dash-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 14px;
+      margin-bottom: 32px;
+    }
+
+    .dash-card {
+      background: var(--surface-card);
+      border-radius: var(--radius-lg);
+      padding: 20px;
+    }
+
+    .dash-card .k {
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .dash-card .v {
+      font-family: "Cormorant Garamond", serif;
+      font-size: 2rem;
+      font-weight: 400;
+      letter-spacing: -0.03em;
+      margin-top: 4px;
+      color: var(--ink);
+    }
+
+    .panel {
+      border: 1px solid var(--hairline);
+      border-radius: var(--radius-lg);
+      padding: 28px;
+      margin-bottom: 20px;
+      background: var(--canvas);
+    }
+
+    .panel h2 {
+      font-size: 1.05rem;
+      font-weight: 500;
+      margin-bottom: 18px;
+      color: var(--ink);
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.9rem;
+    }
+
+    th {
+      text-align: start;
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: var(--muted);
+      padding: 8px 10px;
+      border-bottom: 1px solid var(--hairline);
+      font-weight: 500;
+    }
+
+    td {
+      padding: 14px 10px;
+      border-bottom: 1px solid var(--hairline-soft);
+      vertical-align: middle;
+      color: var(--body);
+    }
+
+    tr:last-child td { border-bottom: none; }
+
+    .modal-bg {
+      position: fixed;
+      inset: 0;
+      background: rgba(20, 20, 19, 0.4);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 80;
+      padding: 20px;
+    }
+
+    .modal-bg.open { display: flex; }
+
+    .modal {
+      background: var(--canvas);
+      border-radius: var(--radius-xl);
+      width: min(480px, 100%);
+      padding: 28px;
+      max-height: 90vh;
+      overflow: auto;
+      border: 1px solid var(--hairline);
+    }
+
+    .modal h3 {
+      font-family: "Cormorant Garamond", serif;
+      font-size: 1.35rem;
+      font-weight: 400;
+      margin-bottom: 6px;
+      color: var(--ink);
+    }
+
+    html[dir="rtl"] .modal h3 {
+      font-family: "Cairo", serif;
+      font-weight: 700;
+    }
+
+    .modal .hint {
+      color: var(--muted);
+      font-size: 0.9rem;
+      margin-bottom: 18px;
+    }
+
+    .dns-box {
+      background: var(--surface-dark);
+      color: var(--on-dark);
+      border-radius: var(--radius-lg);
+      padding: 16px;
+      font-family: "JetBrains Mono", ui-monospace, monospace;
+      font-size: 0.8rem;
+      line-height: 1.6;
+      margin: 12px 0;
+      white-space: pre-wrap;
+    }
+
+    footer {
+      margin-top: auto;
+      background: var(--canvas);
+      padding: 36px 0 40px;
+      color: var(--muted);
+      font-size: 0.875rem;
+      border-top: 1px solid var(--hairline);
+    }
+
+    .footer-inner {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+      text-align: center;
+    }
+
+    footer .brand-foot {
+      color: var(--ink);
+      font-family: "Cormorant Garamond", serif;
+      font-size: 1.05rem;
+      font-weight: 500;
+      letter-spacing: -0.01em;
+    }
+
+    footer .copyright {
+      color: var(--muted-soft);
+      font-size: 0.8125rem;
+      font-weight: 400;
+      letter-spacing: 0.01em;
+    }
+
+    .empty {
+      text-align: center;
+      padding: 56px 16px;
+      color: var(--muted);
+      border: 1px dashed var(--hairline);
+      border-radius: var(--radius-lg);
+      background: var(--surface-soft);
+    }
+
+    .page { display: none; }
+    .page.active { display: block; }
+
+    main { flex: 1; }
+
+    .cta-band {
+      background: var(--primary);
+      border-radius: var(--radius-lg);
+      padding: 48px 40px;
+      margin: 0 auto 80px;
+      max-width: 1120px;
+      width: calc(100% - 40px);
+      color: var(--on-primary);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+      flex-wrap: wrap;
+    }
+
+    .cta-band h2 {
+      font-family: "Cormorant Garamond", serif;
+      font-size: 1.75rem;
+      font-weight: 400;
+      letter-spacing: -0.02em;
+      margin-bottom: 6px;
+    }
+
+    html[dir="rtl"] .cta-band h2 {
+      font-family: "Cairo", serif;
+      font-weight: 700;
+    }
+
+    .cta-band p {
+      opacity: 0.9;
+      font-size: 0.95rem;
+    }
+
+    .cta-band .btn {
+      background: var(--canvas);
+      color: var(--ink);
+      border: none;
+    }
+
+    .cta-band .btn:hover {
+      background: var(--surface-card);
+    }
+
+    @media (max-width: 900px) {
+      .grid-3, .steps, .dash-grid { grid-template-columns: 1fr 1fr; }
+      .hero { padding: 64px 0 48px; }
+      section { padding: 56px 0; }
+    }
+
+    @media (max-width: 640px) {
+      .nav-links a:not(.btn), .nav-links button.nav-link:not(.btn) { display: none; }
+      .grid-3, .steps, .dash-grid { grid-template-columns: 1fr; }
+      .hero { padding-top: 40px; }
+      .hero h1 { font-size: 2rem; }
+      table { display: block; overflow-x: auto; }
+      .cta-band { padding: 32px 24px; }
+    }
+  </style>
+</head>
+<body>
+  <header class="nav">
+    <div class="container nav-inner">
+      <a class="brand" href="javascript:void(0)" data-nav="home"><span data-i18n="brand">AM1 Domin</span></a>
+      <nav class="nav-links">
+        <a href="javascript:void(0)" data-nav="home" data-i18n="navAbout">Home</a>
+        <a href="javascript:void(0)" data-nav="domains" data-i18n="navDomains">Domains</a>
+        <a href="javascript:void(0)" data-nav="admin" class="admin-only" data-i18n="navDash">Dashboard</a>
+        <button class="btn btn-ghost btn-sm admin-only" id="logoutBtn" type="button" data-i18n="navLogout">Log out</button>
+        <a class="btn btn-primary" href="javascript:void(0)" data-nav="domains" data-i18n="navBrowse">Browse domains</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <!-- HOME -->
+    <div id="page-home" class="page active">
+      <div class="container hero">
+        <span class="eyebrow" data-i18n="eyebrow">Domains for sale · Instant DNS</span>
+        <h1 data-i18n="heroTitle">Find the right domain. Point it to your site in minutes.</h1>
+        <p class="lead" data-i18n="heroLead">
+          AM1 Domin lists domains available from our portfolio. Pick a free name, send a short request, and get the DNS records you need to go live.
+        </p>
+        <div class="hero-actions">
+          <a class="btn btn-primary" href="javascript:void(0)" data-nav="domains" data-i18n="ctaDomains">Browse domains</a>
+          <a class="btn btn-ghost" href="javascript:void(0)" data-scroll="how" data-i18n="ctaHow">How it works</a>
+        </div>
+      </div>
+
+      <section>
+        <div class="container">
+          <div class="section-head">
+            <h2 data-i18n="whatTitle">Why AM1 Domin</h2>
+            <p data-i18n="whatLead">
+              A simple place to discover and claim domains we own. No auctions, no noise — just clear availability and ready-to-use DNS.
+            </p>
+          </div>
+          <div class="grid-3">
+            <article class="feature">
+              <div class="feature-icon">01</div>
+              <h3 data-i18n="f1t">Real ownership</h3>
+              <p data-i18n="f1p">Every name on this list is controlled by us. Status updates live from the dashboard.</p>
+            </article>
+            <article class="feature">
+              <div class="feature-icon">02</div>
+              <h3 data-i18n="f2t">Ready DNS</h3>
+              <p data-i18n="f2p">After you claim a domain you get CNAME or nameserver records you can paste into your registrar.</p>
+            </article>
+            <article class="feature">
+              <div class="feature-icon">03</div>
+              <h3 data-i18n="f3t">Fast handoff</h3>
+              <p data-i18n="f3p">Request a name with your contact info, then use the DNS block right away — no long checkout flow.</p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section id="how">
+        <div class="container">
+          <div class="section-head">
+            <h2 data-i18n="howTitle">How to connect your domain</h2>
+            <p data-i18n="howLead">Four quick steps. DNS usually updates within minutes to a few hours at most registrars.</p>
+          </div>
+          <div class="steps">
+            <div class="step">
+              <div class="step-n">1</div>
+              <h3 data-i18n="s1t">Select a domain</h3>
+              <p data-i18n="s1p">Go to Domains and choose a name marked Available.</p>
+            </div>
+            <div class="step">
+              <div class="step-n">2</div>
+              <h3 data-i18n="s2t">Submit a request</h3>
+              <p data-i18n="s2p">Enter your name and email to reserve the domain.</p>
+            </div>
+            <div class="step">
+              <div class="step-n">3</div>
+              <h3 data-i18n="s3t">Copy the records</h3>
+              <p data-i18n="s3p">Copy the CNAME or NS block that appears after your request succeeds.</p>
+            </div>
+            <div class="step">
+              <div class="step-n">4</div>
+              <h3 data-i18n="s4t">Allow propagation</h3>
+              <p data-i18n="s4p">Add the records at your registrar and wait for DNS to propagate.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+</div>
+
+    <!-- DOMAINS -->
+    <div id="page-domains" class="page">
+      <div class="container" style="padding: 40px 0 64px;">
+        <div class="section-head">
+          <h2 data-i18n="invTitle">Available domains</h2>
+          <p data-i18n="invLead">Request any available domain. You will receive CNAME or nameserver records right after.</p>
+        </div>
+
+        <div class="toolbar">
+          <input class="search" id="search" type="search" data-i18n-placeholder="searchPh" placeholder="Search domain names…" />
+          <select class="search" id="filter" style="flex: 0 0 180px;">
+            <option value="all" data-i18n="filterAll">All statuses</option>
+            <option value="available" data-i18n="filterAvail">Available only</option>
+            <option value="taken" data-i18n="filterTaken">Claimed only</option>
+          </select>
+        </div>
+
+        <div class="domain-grid" id="grid"></div>
+        <div class="empty" id="empty" hidden data-i18n="empty">No domains match this search.</div>
+      </div>
+    </div>
+
+    <!-- LOGIN -->
+    <div id="page-login" class="page">
+      <div class="form-card">
+        <h1 data-i18n="loginTitle">Admin sign in</h1>
+        <p class="sub" data-i18n="loginSub">Sign in to manage domains and review claim requests.</p>
+        <form id="loginForm">
+          <label for="email" data-i18n="email">Email</label>
+          <input id="email" type="email" required autocomplete="username" />
+          <label for="password" data-i18n="password">Password</label>
+          <input id="password" type="password" required autocomplete="current-password" />
+          <div id="loginAlert"></div>
+          <button class="btn btn-primary" type="submit" style="width:100%;" data-i18n="signIn">Sign in</button>
+        </form>
+      </div>
+    </div>
+
+    <!-- ADMIN -->
+    <div id="page-admin" class="page">
+      <div class="container" style="padding: 36px 0 64px;">
+        <div class="section-head">
+          <h2 data-i18n="dashTitle">Dashboard</h2>
+          <p data-i18n="dashLead">Manage listings, review claims, and track visits.</p>
+        </div>
+
+        <div class="dash-grid">
+          <div class="dash-card"><div class="k" data-i18n="kVisits">Site visits</div><div class="v" id="vVisits">0</div></div>
+          <div class="dash-card"><div class="k" data-i18n="kListed">Listed domains</div><div class="v" id="vTotal">0</div></div>
+          <div class="dash-card"><div class="k" data-i18n="kAvail">Available</div><div class="v" id="vAvail">0</div></div>
+          <div class="dash-card"><div class="k" data-i18n="kClaimed">Claimed</div><div class="v" id="vTaken">0</div></div>
+        </div>
+
+        <div class="panel">
+          <h2 data-i18n="addTitle">Add a domain</h2>
+          <form id="addForm">
+            <div style="display:grid; grid-template-columns: 1fr 1fr; gap: 12px;">
+              <div>
+                <label for="newName" data-i18n="domainName">Domain name</label>
+                <input id="newName" required placeholder="example.com" />
+              </div>
+              <div>
+                <label for="newNotes" data-i18n="shortDesc">Short description</label>
+                <input id="newNotes" />
+              </div>
+            </div>
+            <label for="newDns" data-i18n="dnsLabel">DNS records shown after a claim (CNAME / NS)</label>
+            <textarea id="newDns" placeholder="CNAME  @  ->  edge.hostly-dns.net&#10;CNAME  www ->  edge.hostly-dns.net"></textarea>
+            <div id="addAlert"></div>
+            <button class="btn btn-primary" type="submit" data-i18n="publish">Publish domain</button>
+          </form>
+        </div>
+
+        <div class="panel">
+          <h2 data-i18n="invPanel">Inventory</h2>
+          <div style="overflow-x:auto;">
+            <table>
+              <thead>
+                <tr>
+                  <th data-i18n="thDomain">Domain</th>
+                  <th data-i18n="thStatus">Status</th>
+                  <th data-i18n="thBy">Claimed by</th>
+                  <th data-i18n="thWhen">When</th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody id="invBody"></tbody>
+            </table>
+          </div>
+        </div>
+
+        <div class="panel">
+          <h2 data-i18n="claimLog">Claim log</h2>
+          <div style="overflow-x:auto;">
+            <table>
+              <thead>
+                <tr>
+                  <th data-i18n="thDomain">Domain</th>
+                  <th data-i18n="thName">Name</th>
+                  <th data-i18n="thEmail">Email</th>
+                  <th data-i18n="thTime">Time</th>
+                </tr>
+              </thead>
+              <tbody id="claimBody"></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- MODAL -->
+  <div class="modal-bg" id="modal">
+    <div class="modal">
+      <h3 id="modalTitle">Request domain</h3>
+      <p class="hint" id="modalHint"></p>
+      <form id="claimForm">
+        <input type="hidden" id="claimId" />
+        <label for="personName" data-i18n="yourName">Your name</label>
+        <input id="personName" required maxlength="80" />
+        <label for="personEmail" data-i18n="email">Email</label>
+        <input id="personEmail" type="email" required />
+        <div id="formAlert"></div>
+        <div style="display:flex; gap:8px; justify-content:flex-end;">
+          <button type="button" class="btn btn-ghost" id="cancelBtn" data-i18n="cancel">Cancel</button>
+          <button type="submit" class="btn btn-primary" data-i18n="requestSubmit">Request domain</button>
+        </div>
+      </form>
+      <div id="successBox" hidden>
+        <div class="alert alert-ok" data-i18n="reserved">Reserved. Add these DNS records at your registrar.</div>
+        <div class="dns-box" id="dnsOut"></div>
+        <button type="button" class="btn btn-primary" id="doneBtn" data-i18n="done">Done</button>
+      </div>
+    </div>
+  </div>
+
+    <footer>
+    <div class="container footer-inner">
+      <span class="brand-foot" data-i18n="footL">AM1 Domin</span>
+      <span class="copyright" data-i18n="footCopy">© 2026 AMMaR MoHamD. All rights reserved.</span>
+    </div>
+  </footer>
+
+  <script>
+    /* ========== CONFIG & STORE ========== */
+    const ADMIN_EMAIL = "xrammar4@gmail.com";
+    const ADMIN_PASS = "Admin@2026";
+    const STORE_DOMAINS = "am1_domains_v1";
+    const STORE_CLAIMS = "am1_claims_v1";
+    const STORE_VISITS = "am1_visits_v1";
+    const STORE_SESSION = "am1_admin_session";
+    const STORE_LANG = "am1_lang_v1";
+
+    const DEFAULT_DOMAINS = [
+      {
+        id: "d1",
+        name: "brightforge.io",
+        notes: "Short brandable .io — ideal for SaaS or creative studios.",
+        dns: "CNAME  @  ->  edge.hostly-dns.net\nCNAME  www ->  edge.hostly-dns.net\nTTL  3600",
+        status: "available"
+      },
+      {
+        id: "d2",
+        name: "northpeak.app",
+        notes: "Clean product name. Perfect for mobile or web apps.",
+        dns: "CNAME  @  ->  edge.hostly-dns.net\nCNAME  www ->  edge.hostly-dns.net\nTTL  3600",
+        status: "available"
+      },
+      {
+        id: "d3",
+        name: "lumenhost.net",
+        notes: "Hosting-style name. Strong for infrastructure brands.",
+        dns: "NS  ns1.hostly-dns.net\nNS  ns2.hostly-dns.net",
+        status: "available"
+      }
+    ];
+
+    /* ========== I18N ========== */
+    const I18N = {
+      en: {
+        brand: "AM1 Domin",
+        navAbout: "Home",
+        navDomains: "Domains",
+        navDash: "Dashboard",
+        navBrowse: "Browse domains",
+        navLogout: "Log out",
+        titleHome: "AM1 Domin — Domains ready to point",
+        titleDomains: "Domains — AM1 Domin",
+        titleLogin: "Admin login — AM1 Domin",
+        titleAdmin: "Dashboard — AM1 Domin",
+        eyebrow: "Domains for sale · Instant DNS",
+        heroTitle: "Find the right domain. Point it to your site in minutes.",
+        heroLead: "AM1 Domin lists domains available from our portfolio. Pick a free name, send a short request, and get the DNS records you need to go live.",
+        ctaDomains: "Browse domains",
+        ctaHow: "How it works",
+        whatTitle: "Why AM1 Domin",
+        whatLead: "A simple place to discover and claim domains we own. No auctions, no noise — just clear availability and ready-to-use DNS.",
+        f1t: "Real ownership",
+        f1p: "Every name on this list is controlled by us. Status updates live from the dashboard.",
+        f2t: "Ready DNS",
+        f2p: "After you claim a domain you get CNAME or nameserver records you can paste into your registrar.",
+        f3t: "Fast handoff",
+        f3p: "Request a name with your contact info, then use the DNS block right away — no long checkout flow.",
+        howTitle: "How to connect your domain",
+        howLead: "Four quick steps. DNS usually updates within minutes to a few hours at most registrars.",
+        s1t: "Select a domain",
+        s1p: "Go to Domains and choose a name marked Available.",
+        s2t: "Submit a request",
+        s2p: "Enter your name and email to reserve the domain.",
+        s3t: "Copy the records",
+        s3p: "Copy the CNAME or NS block that appears after your request succeeds.",
+        s4t: "Allow propagation",
+        s4p: "Add the records at your registrar and wait for DNS to propagate.",
+        footL: "AM1 Domin",
+        footR: "Switch language from the globe icon",
+        footCopy: "© 2026 AMMaR MoHamD. All rights reserved.",
+        invTitle: "Available domains",
+        invLead: "Request any available domain. You will receive CNAME or nameserver records right after.",
+        searchPh: "Search domains…",
+        filterAll: "All",
+        filterAvail: "Available",
+        filterTaken: "Claimed",
+        empty: "No domains match your search.",
+        available: "Available",
+        claimed: "Claimed",
+        claimedBy: "Claimed by",
+        requestBtn: "Request domain",
+        requestTitle: "Claim",
+        requestHint: "After you submit, the domain is reserved and DNS records show below.",
+        yourName: "Your name",
+        email: "Email",
+        cancel: "Cancel",
+        requestSubmit: "Confirm request",
+        reserved: "Domain reserved. Add these DNS records at your registrar.",
+        done: "Done",
+        notAvail: "This domain is no longer available.",
+        loginTitle: "Admin sign in",
+        loginSub: "Sign in to manage domains and review claim requests.",
+        password: "Password",
+        signIn: "Sign in",
+        loginFail: "Wrong email or password.",
+        dashTitle: "Dashboard",
+        dashLead: "Manage listings, review claims, and track visits.",
+        kVisits: "Visits",
+        kListed: "Listed",
+        kAvail: "Available",
+        kClaimed: "Claimed",
+        addTitle: "Add domain",
+        domainName: "Domain name",
+        shortDesc: "Description",
+        dnsLabel: "DNS records (CNAME / NS) shown after a claim",
+        publish: "Add to list",
+        nameRequired: "Enter a domain name.",
+        alreadyListed: "This domain is already on the list.",
+        nowPublic: "is now live.",
+        invPanel: "All domains",
+        thDomain: "Domain",
+        thStatus: "Status",
+        thBy: "Claimed by",
+        thWhen: "When",
+        thName: "Name",
+        thEmail: "Email",
+        thTime: "Time",
+        release: "Release",
+        remove: "Remove",
+        noDomains: "No domains listed yet.",
+        claimLog: "Recent claims",
+        noClaims: "No claims recorded yet.",
+        removeConfirm: "Remove this domain from the list?",
+        langEn: "English",
+        langAr: "العربية",
+        defaultNotes: "Quality domain ready to point.",
+        ctaBandTitle: "Looking for a domain?",
+        ctaBandLead: "Open the list, pick a name, and get DNS in under a minute."
+      },
+      ar: {
+        brand: "AM1 Domin",
+        navAbout: "الرئيسية",
+        navDomains: "النطاقات",
+        navDash: "لوحة التحكم",
+        navBrowse: "تصفح النطاقات",
+        navLogout: "خروج",
+        titleHome: "AM1 Domin — نطاقات جاهزة للربط",
+        titleDomains: "النطاقات — AM1 Domin",
+        titleLogin: "دخول الإدارة — AM1 Domin",
+        titleAdmin: "لوحة التحكم — AM1 Domin",
+        eyebrow: "نطاقات للبيع · DNS فوري",
+        heroTitle: "اختر النطاق المناسب. اربطه بموقعك خلال دقائق.",
+        heroLead: "AM1 Domin يعرض نطاقاً من محفظتنا. اختر اسماً متاحاً، أرسل طلباً قصيراً، واحصل على سجلات DNS اللازمة للتشغيل.",
+        ctaDomains: "تصفح النطاقات",
+        ctaHow: "كيف يعمل",
+        whatTitle: "لماذا AM1 Domin",
+        whatLead: "مكان بسيط لاكتشاف وحجز النطاقات التي نملكها. بلا مزادات ولا ضوضاء — توفر واضح وسجلات DNS جاهزة.",
+        f1t: "ملكية حقيقية",
+        f1p: "كل اسم في القائمة تحت سيطرتنا. الحالة تتحدث مباشرة من لوحة التحكم.",
+        f2t: "DNS جاهز",
+        f2p: "بعد حجز النطاق تصلك سجلات CNAME أو خوادم أسماء تلصقها عند المسجّل.",
+        f3t: "تسليم سريع",
+        f3p: "اطلب الاسماء مع بياناتك، ثم استخدم صندوق DNS مباشرة — بلا خطوات شراء طويلة.",
+        howTitle: "كيف تربط النطاق",
+        howLead: "أربع خطوات سريعة. عادةً ينتشر DNS خلال دقائق إلى ساعات عند أغلب المسجلين.",
+        s1t: "اختر نطاقاً",
+        s1p: "افتح صفحة النطاقات واختر اسماً حالته متوفر.",
+        s2t: "أرسل الطلب",
+        s2p: "أدخل اسمك وبريدك لحجز النطاق.",
+        s3t: "انسخ السجلات",
+        s3p: "انسخ صندوق CNAME أو NS الذي يظهر بعد نجاح الطلب.",
+        s4t: "انتظر الانتشار",
+        s4p: "أضف السجلات عند المسجّل وانتظر انتشار DNS.",
+        footL: "AM1 Domin",
+        footR: "بدّل اللغة من أيقونة الكرة الأرضية",
+        footCopy: "© 2026 AMMaR MoHamD. All rights reserved.",
+        invTitle: "النطاقات المتوفرة",
+        invLead: "اطلب أي نطاق متوفر. ستصلك سجلات CNAME أو خوادم الأسماء مباشرة بعد الطلب.",
+        searchPh: "ابحث عن نطاق…",
+        filterAll: "الكل",
+        filterAvail: "متوفر",
+        filterTaken: "محجوز",
+        empty: "لا توجد نطاقات مطابقة لبحثك.",
+        available: "متوفر",
+        claimed: "محجوز",
+        claimedBy: "محجوز بواسطة",
+        requestBtn: "اطلب النطاق",
+        requestTitle: "حجز",
+        requestHint: "بعد الإرسال يُحجز النطاق وتظهر سجلات DNS بالأسفل.",
+        yourName: "اسمك",
+        email: "البريد الإلكتروني",
+        cancel: "إلغاء",
+        requestSubmit: "تأكيد الطلب",
+        reserved: "تم حجز النطاق. أضف سجلات DNS هذه عند المسجّل.",
+        done: "تم",
+        notAvail: "هذا النطاق لم يعد متوفراً.",
+        loginTitle: "تسجيل دخول الإدارة",
+        loginSub: "سجّل الدخول لإدارة النطاقات ومراجعة طلبات الحجز.",
+        password: "كلمة المرور",
+        signIn: "دخول",
+        loginFail: "البريد أو كلمة المرور غير صحيحة.",
+        dashTitle: "لوحة التحكم",
+        dashLead: "أدر القائمة، راجع الحجوزات، وتابع الزيارات.",
+        kVisits: "الزيارات",
+        kListed: "المعروضة",
+        kAvail: "متوفرة",
+        kClaimed: "محجوزة",
+        addTitle: "إضافة نطاق",
+        domainName: "اسم النطاق",
+        shortDesc: "الوصف",
+        dnsLabel: "سجلات DNS (CNAME / NS) بعد الحجز",
+        publish: "إضافة للقائمة",
+        nameRequired: "أدخل اسم النطاق.",
+        alreadyListed: "هذا النطاق موجود في القائمة.",
+        nowPublic: "أصبح ظاهراً الآن.",
+        invPanel: "كل النطاقات",
+        thDomain: "النطاق",
+        thStatus: "الحالة",
+        thBy: "حُجز بواسطة",
+        thWhen: "الوقت",
+        thName: "الاسم",
+        thEmail: "البريد",
+        thTime: "الوقت",
+        release: "إتاحة",
+        remove: "حذف",
+        noDomains: "لا توجد نطاقات في القائمة بعد.",
+        claimLog: "آخر الحجوزات",
+        noClaims: "لا توجد حجوزات مسجّلة بعد.",
+        removeConfirm: "حذف هذا النطاق من القائمة؟",
+        langEn: "English",
+        langAr: "العربية",
+        defaultNotes: "نطاق جاهز للربط.",
+        ctaBandTitle: "تبحث عن نطاق؟",
+        ctaBandLead: "افتح القائمة، اختر اسماً، واحصل على DNS في أقل من دقيقة."
+      }
+    };
+
+    /* ========== HELPERS ========== */
+    function getLang() {
+      const saved = localStorage.getItem(STORE_LANG);
+      return saved === "ar" ? "ar" : "en";
+    }
+
+    function setLang(lang) {
+      localStorage.setItem(STORE_LANG, lang === "ar" ? "ar" : "en");
+      applyLang();
+      window.dispatchEvent(new CustomEvent("langchange"));
+    }
+
+    function t(key) {
+      const lang = getLang();
+      return (I18N[lang] && I18N[lang][key]) || I18N.en[key] || key;
+    }
+
+    function applyLang() {
+      const lang = getLang();
+      document.documentElement.lang = lang;
+      document.documentElement.dir = lang === "ar" ? "rtl" : "ltr";
+      document.querySelectorAll("[data-i18n]").forEach((el) => {
+        el.textContent = t(el.getAttribute("data-i18n"));
+      });
+      document.querySelectorAll("[data-i18n-placeholder]").forEach((el) => {
+        el.placeholder = t(el.getAttribute("data-i18n-placeholder"));
+      });
+      document.querySelectorAll(".lang-menu button").forEach((btn) => {
+        btn.classList.toggle("active", btn.dataset.setLang === lang);
+      });
+      // Update filter options
+      const filter = document.getElementById("filter");
+      if (filter) {
+        filter.options[0].text = t("filterAll");
+        filter.options[1].text = t("filterAvail");
+        filter.options[2].text = t("filterTaken");
+      }
+      updateTitle();
+    }
+
+    let currentPage = "home";
+
+    function updateTitle() {
+      const map = { home: "titleHome", domains: "titleDomains", login: "titleLogin", admin: "titleAdmin" };
+      document.title = t(map[currentPage] || "titleHome");
+    }
+
+    function uid() {
+      return "id_" + Math.random().toString(36).slice(2, 10) + Date.now().toString(36);
+    }
+
+    function read(key, fallback) {
+      try {
+        const raw = localStorage.getItem(key);
+        return raw ? JSON.parse(raw) : fallback;
+      } catch {
+        return fallback;
+      }
+    }
+
+    function write(key, value) {
+      localStorage.setItem(key, JSON.stringify(value));
+    }
+
+    function getDomains() {
+      const list = read(STORE_DOMAINS, null);
+      if (!list) {
+        write(STORE_DOMAINS, DEFAULT_DOMAINS);
+        return DEFAULT_DOMAINS.slice();
+      }
+      return list;
+    }
+
+    function saveDomains(list) {
+      write(STORE_DOMAINS, list);
+    }
+
+    function getClaims() {
+      return read(STORE_CLAIMS, []);
+    }
+
+    function saveClaims(list) {
+      write(STORE_CLAIMS, list);
+    }
+
+    function bumpVisits() {
+      const n = Number(localStorage.getItem(STORE_VISITS) || 0) + 1;
+      localStorage.setItem(STORE_VISITS, String(n));
+      return n;
+    }
+
+    function getVisits() {
+      return Number(localStorage.getItem(STORE_VISITS) || 0);
+    }
+
+    function isAdmin() {
+      return localStorage.getItem(STORE_SESSION) === ADMIN_EMAIL;
+    }
+
+    function loginAdmin(email, password) {
+      if (email.trim().toLowerCase() === ADMIN_EMAIL && password === ADMIN_PASS) {
+        localStorage.setItem(STORE_SESSION, ADMIN_EMAIL);
+        return true;
+      }
+      return false;
+    }
+
+    function logoutAdmin() {
+      localStorage.removeItem(STORE_SESSION);
+    }
+
+    function claimDomain(domainId, person) {
+      const domains = getDomains();
+      const d = domains.find((x) => x.id === domainId);
+      if (!d || d.status !== "available") return { ok: false, error: t("notAvail") };
+      d.status = "taken";
+      d.claimedBy = person.name;
+      d.claimedEmail = person.email;
+      d.claimedAt = new Date().toISOString();
+      saveDomains(domains);
+      const claims = getClaims();
+      claims.unshift({
+        id: uid(),
+        domainId: d.id,
+        domain: d.name,
+        name: person.name,
+        email: person.email,
+        at: d.claimedAt
+      });
+      saveClaims(claims);
+      return { ok: true, domain: d };
+    }
+
+    function addDomain(payload) {
+      const domains = getDomains();
+      const name = payload.name.trim().toLowerCase();
+      if (!name) return { ok: false, error: t("nameRequired") };
+      if (domains.some((d) => d.name.toLowerCase() === name)) {
+        return { ok: false, error: t("alreadyListed") };
+      }
+      const item = {
+        id: uid(),
+        name,
+        notes: payload.notes.trim() || t("defaultNotes"),
+        dns: payload.dns.trim() || "CNAME  @  ->  edge.hostly-dns.net\nCNAME  www ->  edge.hostly-dns.net",
+        status: "available"
+      };
+      domains.unshift(item);
+      saveDomains(domains);
+      return { ok: true, domain: item };
+    }
+
+    function removeDomain(id) {
+      saveDomains(getDomains().filter((d) => d.id !== id));
+    }
+
+    function releaseDomain(id) {
+      const domains = getDomains();
+      const d = domains.find((x) => x.id === id);
+      if (!d) return;
+      d.status = "available";
+      delete d.claimedBy;
+      delete d.claimedEmail;
+      delete d.claimedAt;
+      saveDomains(domains);
+    }
+
+    function formatDate(iso) {
+      if (!iso) return "—";
+      const d = new Date(iso);
+      return d.toLocaleString(getLang() === "ar" ? "ar" : "en");
+    }
+
+    /* ========== ROUTING (no hash) ========== */
+    function showPage(name) {
+      const allowed = ["home", "domains", "login", "admin"];
+      if (!allowed.includes(name)) name = "home";
+
+      if (name === "admin" && !isAdmin()) {
+        showPage("login");
+        return;
+      }
+      if (name === "login" && isAdmin()) {
+        showPage("admin");
+        return;
+      }
+
+      currentPage = name;
+      document.querySelectorAll(".page").forEach((p) => p.classList.remove("active"));
+      const page = document.getElementById("page-" + name);
+      if (page) page.classList.add("active");
+
+      document.querySelectorAll("[data-nav]").forEach((el) => {
+        el.classList.toggle("active", el.getAttribute("data-nav") === name);
+      });
+
+      if (name === "domains") renderDomains();
+      if (name === "admin") refreshAdmin();
+      updateTitle();
+      window.scrollTo(0, 0);
+    }
+
+    /* ========== LANG SWITCHER ========== */
+    const GLOBE_SVG = `
+      <svg viewBox="0 0 24 24" aria-hidden="true">
+        <circle cx="12" cy="12" r="9" stroke-width="1.5"/>
+        <ellipse cx="12" cy="12" rx="4" ry="9" stroke-width="1.5"/>
+        <path d="M3 12h18M12 3c2.5 2.8 2.5 15.2 0 18M12 3c-2.5 2.8-2.5 15.2 0 18" stroke-width="1.5"/>
+      </svg>`;
+
+    const FLAG_US = `<span class="flag" aria-hidden="true"><svg viewBox="0 0 22 16" xmlns="http://www.w3.org/2000/svg"><rect width="22" height="16" fill="#B22234"/><path d="M0 1.23h22M0 3.69h22M0 6.15h22M0 8.62h22M0 11.08h22M0 13.54h22" stroke="#fff" stroke-width="1.23"/><rect width="8.8" height="8.55" fill="#3C3B6E"/><g fill="#fff"><circle cx="1.1" cy="1.1" r="0.35"/><circle cx="2.75" cy="1.1" r="0.35"/><circle cx="4.4" cy="1.1" r="0.35"/><circle cx="6.05" cy="1.1" r="0.35"/><circle cx="7.7" cy="1.1" r="0.35"/><circle cx="1.9" cy="2.1" r="0.35"/><circle cx="3.55" cy="2.1" r="0.35"/><circle cx="5.2" cy="2.1" r="0.35"/><circle cx="6.85" cy="2.1" r="0.35"/><circle cx="1.1" cy="3.1" r="0.35"/><circle cx="2.75" cy="3.1" r="0.35"/><circle cx="4.4" cy="3.1" r="0.35"/><circle cx="6.05" cy="3.1" r="0.35"/><circle cx="7.7" cy="3.1" r="0.35"/><circle cx="1.9" cy="4.1" r="0.35"/><circle cx="3.55" cy="4.1" r="0.35"/><circle cx="5.2" cy="4.1" r="0.35"/><circle cx="6.85" cy="4.1" r="0.35"/><circle cx="1.1" cy="5.1" r="0.35"/><circle cx="2.75" cy="5.1" r="0.35"/><circle cx="4.4" cy="5.1" r="0.35"/><circle cx="6.05" cy="5.1" r="0.35"/><circle cx="7.7" cy="5.1" r="0.35"/><circle cx="1.9" cy="6.1" r="0.35"/><circle cx="3.55" cy="6.1" r="0.35"/><circle cx="5.2" cy="6.1" r="0.35"/><circle cx="6.85" cy="6.1" r="0.35"/><circle cx="1.1" cy="7.1" r="0.35"/><circle cx="2.75" cy="7.1" r="0.35"/><circle cx="4.4" cy="7.1" r="0.35"/><circle cx="6.05" cy="7.1" r="0.35"/><circle cx="7.7" cy="7.1" r="0.35"/></g></svg></span>`;
+    const FLAG_SA = `<span class="flag" aria-hidden="true"><svg viewBox="0 0 22 16" xmlns="http://www.w3.org/2000/svg"><rect width="22" height="16" fill="#006C35"/><text x="11" y="7.2" text-anchor="middle" fill="#fff" font-size="3.2" font-family="Arial,sans-serif" font-weight="700">لا إله إلا الله</text><text x="11" y="10.2" text-anchor="middle" fill="#fff" font-size="2.2" font-family="Arial,sans-serif">محمد رسول الله</text><path d="M5 12.5h12" stroke="#fff" stroke-width="0.9" stroke-linecap="round"/><path d="M15.5 11.8l1.2 0.7-1.2 0.7" fill="#fff"/></svg></span>`;
+
+    function mountLangSwitcher() {
+      const nav = document.querySelector(".nav-links");
+      if (!nav || document.querySelector(".lang-wrap")) return;
+      const wrap = document.createElement("div");
+      wrap.className = "lang-wrap";
+      wrap.innerHTML = `
+        <button class="lang-btn" type="button" aria-label="Language">${GLOBE_SVG}</button>
+        <div class="lang-menu">
+          <button type="button" data-set-lang="en">${FLAG_US}<span data-i18n="langEn">English</span></button>
+          <button type="button" data-set-lang="ar">${FLAG_SA}<span data-i18n="langAr">العربية</span></button>
+        </div>
+      `;
+      nav.appendChild(wrap);
+      wrap.querySelector(".lang-btn").addEventListener("click", (e) => {
+        e.stopPropagation();
+        wrap.classList.toggle("open");
+      });
+      wrap.querySelectorAll("[data-set-lang]").forEach((btn) => {
+        btn.addEventListener("click", () => {
+          setLang(btn.dataset.setLang);
+          wrap.classList.remove("open");
+        });
+      });
+      document.addEventListener("click", () => wrap.classList.remove("open"));
+    }
+
+    /* ========== DOMAINS PAGE ========== */
+    function renderDomains() {
+      const grid = document.getElementById("grid");
+      const empty = document.getElementById("empty");
+      const search = document.getElementById("search");
+      const filter = document.getElementById("filter");
+      if (!grid) return;
+
+      const q = (search.value || "").trim().toLowerCase();
+      const f = filter.value;
+      const items = getDomains().filter((d) => {
+        const matchQ = d.name.toLowerCase().includes(q);
+        const matchF = f === "all" || d.status === f;
+        return matchQ && matchF;
+      });
+
+      grid.innerHTML = "";
+      empty.hidden = items.length > 0;
+
+      items.forEach((d) => {
+        const card = document.createElement("article");
+        card.className = "domain-card";
+        const available = d.status === "available";
+        card.innerHTML = `
+          <div class="domain-top">
+            <div class="domain-name">${d.name}</div>
+            <span class="badge ${available ? "badge-ok" : "badge-taken"}">${available ? t("available") : t("claimed")}</span>
+          </div>
+          <p class="domain-meta">${d.notes || ""}</p>
+          ${available
+            ? `<button class="btn btn-primary" data-id="${d.id}">${t("requestBtn")}</button>`
+            : `<p class="domain-meta">${t("claimedBy")}${d.claimedBy ? " " + d.claimedBy : ""}.</p>`}
+        `;
+        grid.appendChild(card);
+      });
+    }
+
+    /* ========== ADMIN PAGE ========== */
+    function refreshAdmin() {
+      const domains = getDomains();
+      const claims = getClaims();
+      document.getElementById("vVisits").textContent = getVisits();
+      document.getElementById("vTotal").textContent = domains.length;
+      document.getElementById("vAvail").textContent = domains.filter(d => d.status === "available").length;
+      document.getElementById("vTaken").textContent = domains.filter(d => d.status === "taken").length;
+
+      document.getElementById("invBody").innerHTML = domains.map((d) => `
+        <tr>
+          <td><strong>${d.name}</strong></td>
+          <td><span class="badge ${d.status === "available" ? "badge-ok" : "badge-taken"}">${d.status === "available" ? t("available") : t("claimed")}</span></td>
+          <td>${d.claimedBy ? `${d.claimedBy}<br><span style="color:var(--muted)">${d.claimedEmail || ""}</span>` : "—"}</td>
+          <td>${formatDate(d.claimedAt)}</td>
+          <td style="white-space:nowrap;">
+            ${d.status === "taken" ? `<button class="btn btn-ghost btn-sm" data-release="${d.id}">${t("release")}</button>` : ""}
+            <button class="btn btn-danger btn-sm" data-del="${d.id}">${t("remove")}</button>
+          </td>
+        </tr>
+      `).join("") || `<tr><td colspan="5">${t("noDomains")}</td></tr>`;
+
+      document.getElementById("claimBody").innerHTML = claims.map((c) => `
+        <tr>
+          <td>${c.domain}</td>
+          <td>${c.name}</td>
+          <td>${c.email}</td>
+          <td>${formatDate(c.at)}</td>
+        </tr>
+      `).join("") || `<tr><td colspan="4">${t("noClaims")}</td></tr>`;
+    }
+
+    /* ========== INIT ========== */
+    document.addEventListener("DOMContentLoaded", () => {
+      bumpVisits();
+      document.querySelectorAll(".admin-only").forEach((el) => {
+        if (isAdmin()) el.classList.add("show-admin");
+      });
+      mountLangSwitcher();
+      applyLang();
+      showPage("home");
+
+      // Nav clicks (no hash)
+      document.querySelectorAll("[data-nav]").forEach((el) => {
+        el.addEventListener("click", (e) => {
+          e.preventDefault();
+          showPage(el.getAttribute("data-nav"));
+        });
+      });
+
+      document.querySelectorAll("[data-scroll]").forEach((el) => {
+        el.addEventListener("click", (e) => {
+          e.preventDefault();
+          const id = el.getAttribute("data-scroll");
+          if (currentPage !== "home") {
+            showPage("home");
+            setTimeout(() => {
+              const target = document.getElementById(id);
+              if (target) target.scrollIntoView({ behavior: "smooth" });
+            }, 50);
+          } else {
+            const target = document.getElementById(id);
+            if (target) target.scrollIntoView({ behavior: "smooth" });
+          }
+        });
+      });
+
+      window.addEventListener("langchange", () => {
+        applyLang();
+        if (document.getElementById("page-domains").classList.contains("active")) renderDomains();
+        if (document.getElementById("page-admin").classList.contains("active")) refreshAdmin();
+      });
+
+      // Search / filter
+      document.getElementById("search").addEventListener("input", renderDomains);
+      document.getElementById("filter").addEventListener("change", renderDomains);
+
+      // Modal
+      const modal = document.getElementById("modal");
+      const grid = document.getElementById("grid");
+
+      grid.addEventListener("click", (e) => {
+        const btn = e.target.closest("button[data-id]");
+        if (!btn) return;
+        const d = getDomains().find((x) => x.id === btn.dataset.id);
+        if (!d) return;
+        document.getElementById("claimId").value = d.id;
+        document.getElementById("modalTitle").textContent = t("requestTitle") + " " + d.name;
+        document.getElementById("modalHint").textContent = t("requestHint");
+        document.getElementById("claimForm").hidden = false;
+        document.getElementById("successBox").hidden = true;
+        document.getElementById("formAlert").innerHTML = "";
+        document.getElementById("personName").value = "";
+        document.getElementById("personEmail").value = "";
+        modal.classList.add("open");
+      });
+
+      document.getElementById("cancelBtn").onclick = () => modal.classList.remove("open");
+      document.getElementById("doneBtn").onclick = () => {
+        modal.classList.remove("open");
+        renderDomains();
+      };
+      modal.addEventListener("click", (e) => {
+        if (e.target === modal) modal.classList.remove("open");
+      });
+
+      document.getElementById("claimForm").addEventListener("submit", (e) => {
+        e.preventDefault();
+        const result = claimDomain(document.getElementById("claimId").value, {
+          name: document.getElementById("personName").value,
+          email: document.getElementById("personEmail").value
+        });
+        const box = document.getElementById("formAlert");
+        if (!result.ok) {
+          box.innerHTML = `<div class="alert alert-error">${result.error}</div>`;
+          return;
+        }
+        document.getElementById("claimForm").hidden = true;
+        document.getElementById("successBox").hidden = false;
+        document.getElementById("dnsOut").textContent =
+          "Domain: " + result.domain.name + "\n\n" + result.domain.dns;
+      });
+
+      // Login
+      document.getElementById("loginForm").addEventListener("submit", (e) => {
+        e.preventDefault();
+        const email = document.getElementById("email").value;
+        const password = document.getElementById("password").value;
+        if (loginAdmin(email, password)) {
+          document.querySelectorAll(".admin-only").forEach((el) => el.classList.add("show-admin"));
+          showPage("admin");
+        } else {
+          document.getElementById("loginAlert").innerHTML =
+            '<div class="alert alert-error">' + t("loginFail") + "</div>";
+        }
+      });
+
+      // Logout
+      document.getElementById("logoutBtn").onclick = () => {
+        logoutAdmin();
+        document.querySelectorAll(".admin-only").forEach((el) => el.classList.remove("show-admin"));
+        showPage("home");
+      };
+
+      // Admin inventory actions
+      document.getElementById("invBody").addEventListener("click", (e) => {
+        const del = e.target.closest("[data-del]");
+        const rel = e.target.closest("[data-release]");
+        if (del && confirm(t("removeConfirm"))) {
+          removeDomain(del.dataset.del);
+          refreshAdmin();
+        }
+        if (rel) {
+          releaseDomain(rel.dataset.release);
+          refreshAdmin();
+        }
+      });
+
+      // Add domain
+      document.getElementById("addForm").addEventListener("submit", (e) => {
+        e.preventDefault();
+        const result = addDomain({
+          name: document.getElementById("newName").value,
+          notes: document.getElementById("newNotes").value,
+          dns: document.getElementById("newDns").value
+        });
+        const box = document.getElementById("addAlert");
+        if (!result.ok) {
+          box.innerHTML = `<div class="alert alert-error">${result.error}</div>`;
+          return;
+        }
+        box.innerHTML = `<div class="alert alert-ok">${result.domain.name} ${t("nowPublic")}</div>`;
+        e.target.reset();
+        refreshAdmin();
+      });
+    });
+  </script>
+</body>
+</html>
