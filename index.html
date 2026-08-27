@@ -901,6 +901,7 @@
         signInGoogle: "Continue with Google",
         loginFail: "Sign-in failed. Try again.",
         notAuthorized: "This account is not authorized.",
+        signedInNoDash: "Signed in. Dashboard is only for authorized emails.",
         dashTitle: "Dashboard",
         dashLead: "Manage listings, subdomains, claims, and team. CEO can invite admins.",
         kVisits: "Visits",
@@ -1037,6 +1038,7 @@
         signInGoogle: "المتابعة مع Google",
         loginFail: "فشل تسجيل الدخول. حاول مرة أخرى.",
         notAuthorized: "هذا الحساب غير مصرح له بالدخول.",
+        signedInNoDash: "تم تسجيل الدخول. لوحة التحكم تظهر فقط للإيميلات المصرح لها.",
         dashTitle: "لوحة التحكم",
         dashLead: "أدر القائمة والساب دومين والحجوزات والفريق. الـ CEO يستطيع دعوة أدمن.",
         kVisits: "الزيارات",
@@ -1215,10 +1217,13 @@
       const user = auth.currentUser;
       return user && user.email ? user.email : null;
     }
+    function isSignedIn() {
+      return !!auth.currentUser;
+    }
     function isAdmin() {
       const email = getSessionEmail();
       if (!email) return false;
-      // Only CEO + admins added in Team can access the dashboard
+      // Dashboard only for CEO + emails added in Team
       return getAdmins().some((a) => a.email.toLowerCase() === email.toLowerCase());
     }
     function isCeo() {
@@ -1303,6 +1308,7 @@
     }
 
     function removeDomain(id) {
+      if (!isCeo()) return; // only xrammar4@gmail.com may delete
       saveDomains(getDomains().filter((d) => d.id !== id));
     }
     function releaseDomain(id) {
@@ -1376,15 +1382,27 @@
     function updateAdminVisibility() {
       const admin = isAdmin();
       const ceo = isCeo();
+      const signedIn = isSignedIn();
       document.querySelectorAll(".admin-only").forEach((el) => {
+        // Dashboard / admin panels: only for authorized emails
         el.classList.toggle("show-admin", admin);
       });
       document.querySelectorAll(".guest-only").forEach((el) => {
-        el.classList.toggle("hide-guest", admin);
+        // Google sign-in button: hide when any account is signed in
+        el.classList.toggle("hide-guest", signedIn);
+      });
+      document.querySelectorAll(".signed-in-only").forEach((el) => {
+        el.classList.toggle("show-signed-in", signedIn);
       });
       document.querySelectorAll(".ceo-only").forEach((el) => {
         el.classList.toggle("show-ceo", ceo);
       });
+      // Logout visible for any signed-in user (not only admins)
+      const logoutBtn = document.getElementById("logoutBtn");
+      if (logoutBtn) {
+        if (signedIn) logoutBtn.classList.add("show-admin");
+        else logoutBtn.classList.remove("show-admin");
+      }
     }
 
     /* ========== LANG SWITCHER ========== */
@@ -1497,7 +1515,7 @@
             <td>${formatDate(d.claimedAt)}</td>
             <td style="white-space:nowrap;">
               ${d.status === "taken" ? `<button class="btn btn-ghost btn-sm" data-release="${d.id}">${t("release")}</button>` : ""}
-              <button class="btn btn-danger btn-sm" data-del="${d.id}">${t("remove")}</button>
+              ${isCeo() ? `<button class="btn btn-danger btn-sm" data-del="${d.id}">${t("remove")}</button>` : ""}
             </td>
           </tr>`;
           })
@@ -1547,17 +1565,15 @@
       mountLangSwitcher();
       applyLang();
 
-      // Firebase auth state — restore session only for authorized admins
+      // Firebase auth state — anyone can sign in; dashboard only if email is authorized
       auth.onAuthStateChanged((user) => {
-        if (user && !isAdmin()) {
-          // Signed in via Firebase but not in the allowed admin list → sign out
-          auth.signOut();
-          return;
-        }
         updateAdminVisibility();
+        if (user && isAdmin() && (currentPage === "login" || currentPage === "home")) {
+          // optional: stay on current page; only auto-redirect from login page
+        }
         if (user && isAdmin() && currentPage === "login") {
           showPage("admin");
-        } else if (!user && currentPage === "admin") {
+        } else if ((!user || !isAdmin()) && currentPage === "admin") {
           showPage("home");
         }
       });
@@ -1669,26 +1685,28 @@
         };
       });
 
-      // Google sign-in (header + login page)
+      // Google sign-in (header + login page) — available to anyone
       function doGoogleSignIn(triggerBtn, alertBox) {
         if (triggerBtn) triggerBtn.disabled = true;
         if (alertBox) alertBox.innerHTML = "";
         auth.signInWithPopup(googleProvider)
           .then(() => {
-            if (!isAdmin()) {
-              return auth.signOut().then(() => {
-                throw new Error("not_authorized");
-              });
-            }
             updateAdminVisibility();
-            showPage("admin");
+            if (isAdmin()) {
+              showPage("admin");
+            } else {
+              // Signed in but not authorized for dashboard — stay on site
+              showPage("home");
+              if (alertBox) {
+                alertBox.innerHTML =
+                  '<div class="alert alert-info">' + t("signedInNoDash") + "</div>";
+              }
+            }
           })
           .catch((err) => {
             console.error(err);
             if (err && err.code === "auth/popup-closed-by-user") return;
-            const msg = err && err.message === "not_authorized"
-              ? t("notAuthorized")
-              : t("loginFail");
+            const msg = t("loginFail");
             if (alertBox) {
               alertBox.innerHTML = '<div class="alert alert-error">' + msg + "</div>";
             } else {
@@ -1726,11 +1744,12 @@
       document.getElementById("invBody").addEventListener("click", (e) => {
         const del = e.target.closest("[data-del]");
         const rel = e.target.closest("[data-release]");
-        if (del && confirm(t("removeConfirm"))) {
+        // Only CEO (xrammar4@gmail.com) can permanently remove domains
+        if (del && isCeo() && confirm(t("removeConfirm"))) {
           removeDomain(del.dataset.del);
           refreshAdmin();
         }
-        if (rel) {
+        if (rel && isAdmin()) {
           releaseDomain(rel.dataset.release);
           refreshAdmin();
         }
