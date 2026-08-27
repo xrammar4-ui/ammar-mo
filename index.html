@@ -59,11 +59,12 @@
       height: 64px;
     }
     .nav-inner {
-      display: flex; align-items: center; justify-content: space-between; height: 64px;
+      display: flex; align-items: center; justify-content: space-between; height: 64px; gap: 16px;
     }
     .brand {
       font-family: "Cormorant Garamond", serif;
       font-weight: 500; font-size: 1.4rem; letter-spacing: -0.03em; color: var(--ink);
+      flex-shrink: 0;
     }
     .admin-only { display: none !important; }
     .admin-only.show-admin { display: inline-flex !important; }
@@ -71,6 +72,9 @@
     .guest-only.hide-guest { display: none !important; }
     .ceo-only { display: none !important; }
     .ceo-only.show-ceo { display: block !important; }
+    .nav-actions {
+      display: flex; align-items: center; gap: 8px; flex-shrink: 0; margin-inline-start: auto;
+    }
 
     .lang-wrap { position: relative; }
     .lang-btn {
@@ -128,6 +132,17 @@
     .btn-sm { padding: 7px 12px; height: auto; font-size: 13px; }
     .btn-teal { background: var(--accent-teal); color: #fff; }
     .btn-teal:hover { background: #4a9e8e; }
+    .btn-google {
+      background: #fff; color: var(--ink);
+      border: 1px solid var(--hairline);
+      box-shadow: var(--shadow-soft);
+    }
+    .btn-google:hover {
+      background: var(--surface-soft);
+      border-color: var(--surface-cream-strong);
+      transform: translateY(-1px);
+    }
+    .btn-google svg { flex-shrink: 0; }
 
     .hero { padding: 96px 0 64px; }
     .eyebrow {
@@ -419,11 +434,15 @@
       <nav class="nav-links">
         <a href="javascript:void(0)" data-nav="home" data-i18n="navAbout">Home</a>
         <a href="javascript:void(0)" data-nav="domains" data-i18n="navDomains">Domains</a>
-        <a href="javascript:void(0)" data-nav="login" class="guest-only" data-i18n="navLogin">Admin</a>
         <a href="javascript:void(0)" data-nav="admin" class="admin-only" data-i18n="navDash">Dashboard</a>
-        <button class="btn btn-ghost btn-sm admin-only" id="logoutBtn" type="button" data-i18n="navLogout">Log out</button>
-        <a class="btn btn-primary" href="javascript:void(0)" data-nav="domains" data-i18n="navBrowse">Browse domains</a>
       </nav>
+      <div class="nav-actions">
+        <button type="button" class="btn btn-google btn-sm guest-only" id="navGoogleBtn">
+          <svg width="16" height="16" viewBox="0 0 48 48" aria-hidden="true"><path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"/><path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"/><path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"/><path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/></svg>
+          <span data-i18n="signInGoogle">Continue with Google</span>
+        </button>
+        <button class="btn btn-ghost btn-sm admin-only" id="logoutBtn" type="button" data-i18n="navLogout">Log out</button>
+      </div>
     </div>
   </header>
 
@@ -539,15 +558,12 @@
     <div id="page-login" class="page">
       <div class="form-card">
         <h1 data-i18n="loginTitle">Admin sign in</h1>
-        <p class="sub" data-i18n="loginSub">Sign in to manage domains, claims, and team access.</p>
-        <form id="loginForm">
-          <label for="email" data-i18n="email">Email</label>
-          <input id="email" type="email" required autocomplete="username" />
-          <label for="password" data-i18n="password">Password</label>
-          <input id="password" type="password" required autocomplete="current-password" />
-          <div id="loginAlert"></div>
-          <button class="btn btn-primary" type="submit" style="width:100%;" data-i18n="signIn">Sign in</button>
-        </form>
+        <p class="sub" data-i18n="loginSub">Sign in with Google to manage domains, claims, and team access.</p>
+        <div id="loginAlert"></div>
+        <button type="button" class="btn btn-google" id="googleSignInBtn" style="width:100%;">
+          <svg width="18" height="18" viewBox="0 0 48 48" aria-hidden="true"><path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"/><path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"/><path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"/><path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/></svg>
+          <span data-i18n="signInGoogle">Continue with Google</span>
+        </button>
       </div>
     </div>
 
@@ -667,18 +683,12 @@
           <div class="tab-pane ceo-only" id="tab-team">
             <h2 data-i18n="teamTitle">Team & access</h2>
             <p style="color:var(--muted);font-size:0.9rem;margin-bottom:16px;" data-i18n="teamLead">
-              As CEO you can add or remove admins. They can manage domains and claims but cannot manage the team. Login uses Firebase Auth — create the user in Firebase Console first.
+              As CEO you can add or remove admins by their Google email. They can manage domains and claims but cannot manage the team.
             </p>
             <form id="addAdminForm" style="margin-bottom:24px;">
-              <div class="form-row">
-                <div>
-                  <label for="adminEmail" data-i18n="email">Email</label>
-                  <input id="adminEmail" type="email" required placeholder="admin@example.com" />
-                </div>
-                <div>
-                  <label for="adminPass" data-i18n="password">Password (Firebase)</label>
-                  <input id="adminPass" type="text" minlength="6" placeholder="Create in Firebase Console" />
-                </div>
+              <div>
+                <label for="adminEmail" data-i18n="email">Email (Google account)</label>
+                <input id="adminEmail" type="email" required placeholder="admin@gmail.com" />
               </div>
               <div id="adminAlert"></div>
               <button class="btn btn-primary" type="submit" data-i18n="addAdmin">Add admin</button>
@@ -759,6 +769,8 @@
     };
     firebase.initializeApp(firebaseConfig);
     const auth = firebase.auth();
+    const googleProvider = new firebase.auth.GoogleAuthProvider();
+    googleProvider.setCustomParameters({ prompt: "select_account" });
 
     /* ========== CONFIG & STORE ========== */
     const CEO_EMAIL = "xrammar4@gmail.com";
@@ -827,7 +839,7 @@
         navDash: "Dashboard",
         navBrowse: "Browse domains",
         navLogout: "Log out",
-        navLogin: "Admin",
+        navLogin: "Sign in",
         titleHome: "AM1 Domin — Domains & subdomains ready to point",
         titleDomains: "Domains — AM1 Domin",
         titleLogin: "Admin login — AM1 Domin",
@@ -883,10 +895,12 @@
         copy: "Copy",
         notAvail: "This domain is no longer available.",
         loginTitle: "Admin sign in",
-        loginSub: "Sign in to manage domains, claims, and team access.",
+        loginSub: "Sign in with Google to manage domains, claims, and team access.",
         password: "Password",
         signIn: "Sign in",
-        loginFail: "Wrong email or password.",
+        signInGoogle: "Continue with Google",
+        loginFail: "Sign-in failed. Try again.",
+        notAuthorized: "This account is not authorized.",
         dashTitle: "Dashboard",
         dashLead: "Manage listings, subdomains, claims, and team. CEO can invite admins.",
         kVisits: "Visits",
@@ -935,7 +949,7 @@
         tabClaims: "Claims",
         tabTeam: "Team",
         teamTitle: "Team & access",
-        teamLead: "As CEO you can add or remove admins. They can manage domains and claims but cannot manage the team. Login uses Firebase Auth — create the user in Firebase Console first.",
+        teamLead: "As CEO you can add or remove admins by their Google email. They can manage domains and claims but cannot manage the team. They must sign in with that Google account.",
         addAdmin: "Add admin",
         adminAdded: "Admin added successfully.",
         adminExists: "This email is already an admin.",
@@ -961,7 +975,7 @@
         navDash: "لوحة التحكم",
         navBrowse: "تصفح النطاقات",
         navLogout: "خروج",
-        navLogin: "الإدارة",
+        navLogin: "تسجيل الدخول",
         titleHome: "AM1 Domin — نطاقات وساب دومين جاهزة للربط",
         titleDomains: "النطاقات — AM1 Domin",
         titleLogin: "دخول الإدارة — AM1 Domin",
@@ -1017,10 +1031,12 @@
         copy: "نسخ",
         notAvail: "هذا النطاق لم يعد متوفراً.",
         loginTitle: "تسجيل دخول الإدارة",
-        loginSub: "سجّل الدخول لإدارة النطاقات والحجوزات وفريق العمل.",
+        loginSub: "سجّل الدخول بحساب Google لإدارة النطاقات والحجوزات وفريق العمل.",
         password: "كلمة المرور",
         signIn: "دخول",
-        loginFail: "البريد أو كلمة المرور غير صحيحة.",
+        signInGoogle: "المتابعة مع Google",
+        loginFail: "فشل تسجيل الدخول. حاول مرة أخرى.",
+        notAuthorized: "هذا الحساب غير مصرح له بالدخول.",
         dashTitle: "لوحة التحكم",
         dashLead: "أدر القائمة والساب دومين والحجوزات والفريق. الـ CEO يستطيع دعوة أدمن.",
         kVisits: "الزيارات",
@@ -1069,7 +1085,7 @@
         tabClaims: "الحجوزات",
         tabTeam: "الفريق",
         teamTitle: "الفريق والصلاحيات",
-        teamLead: "كـ CEO يمكنك إضافة أو إزالة أدمن. يستطيعون إدارة النطاقات والحجوزات لكن ليس الفريق. تسجيل الدخول عبر Firebase — أنشئ المستخدم أولاً من Firebase Console.",
+        teamLead: "كـ CEO يمكنك إضافة أو إزالة أدمن عبر إيميل Google. يستطيعون إدارة النطاقات والحجوزات لكن ليس الفريق. يجب أن يسجّلوا الدخول بنفس حساب Google.",
         addAdmin: "إضافة أدمن",
         adminAdded: "تمت إضافة الأدمن بنجاح.",
         adminExists: "هذا البريد أدمن بالفعل.",
@@ -1377,7 +1393,7 @@
     const FLAG_SA = `<span class="flag" aria-hidden="true"><svg viewBox="0 0 22 16" xmlns="http://www.w3.org/2000/svg"><rect width="22" height="16" fill="#006C35"/><text x="11" y="9" text-anchor="middle" fill="#fff" font-size="5" font-family="Arial" font-weight="700">SA</text></svg></span>`;
 
     function mountLangSwitcher() {
-      const nav = document.querySelector(".nav-links");
+      const nav = document.querySelector(".nav-actions") || document.querySelector(".nav-links");
       if (!nav || document.querySelector(".lang-wrap")) return;
       const wrap = document.createElement("div");
       wrap.className = "lang-wrap";
@@ -1653,18 +1669,12 @@
         };
       });
 
-      // Login (Firebase Auth)
-      document.getElementById("loginForm").addEventListener("submit", (e) => {
-        e.preventDefault();
-        const email = document.getElementById("email").value.trim();
-        const password = document.getElementById("password").value;
-        const alertBox = document.getElementById("loginAlert");
-        alertBox.innerHTML = "";
-        const submitBtn = e.target.querySelector('button[type="submit"]');
-        if (submitBtn) submitBtn.disabled = true;
-        auth.signInWithEmailAndPassword(email, password)
+      // Google sign-in (header + login page)
+      function doGoogleSignIn(triggerBtn, alertBox) {
+        if (triggerBtn) triggerBtn.disabled = true;
+        if (alertBox) alertBox.innerHTML = "";
+        auth.signInWithPopup(googleProvider)
           .then(() => {
-            // Only CEO + listed admins may enter the dashboard
             if (!isAdmin()) {
               return auth.signOut().then(() => {
                 throw new Error("not_authorized");
@@ -1675,15 +1685,32 @@
           })
           .catch((err) => {
             console.error(err);
+            if (err && err.code === "auth/popup-closed-by-user") return;
             const msg = err && err.message === "not_authorized"
-              ? (getLang() === "ar" ? "هذا الحساب غير مصرح له بالدخول." : "This account is not authorized.")
+              ? t("notAuthorized")
               : t("loginFail");
-            alertBox.innerHTML = '<div class="alert alert-error">' + msg + "</div>";
+            if (alertBox) {
+              alertBox.innerHTML = '<div class="alert alert-error">' + msg + "</div>";
+            } else {
+              alert(msg);
+            }
           })
           .finally(() => {
-            if (submitBtn) submitBtn.disabled = false;
+            if (triggerBtn) triggerBtn.disabled = false;
           });
-      });
+      }
+      const googlePageBtn = document.getElementById("googleSignInBtn");
+      if (googlePageBtn) {
+        googlePageBtn.addEventListener("click", () => {
+          doGoogleSignIn(googlePageBtn, document.getElementById("loginAlert"));
+        });
+      }
+      const navGoogleBtn = document.getElementById("navGoogleBtn");
+      if (navGoogleBtn) {
+        navGoogleBtn.addEventListener("click", () => {
+          doGoogleSignIn(navGoogleBtn, null);
+        });
+      }
 
       document.getElementById("logoutBtn").onclick = () => {
         logoutAdmin().then(() => {
@@ -1735,7 +1762,7 @@
         if (!isCeo()) return;
         const result = addAdminUser(
           document.getElementById("adminEmail").value,
-          document.getElementById("adminPass").value
+          ""
         );
         const box = document.getElementById("adminAlert");
         if (!result.ok) {
