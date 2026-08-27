@@ -67,6 +67,8 @@
     }
     .admin-only { display: none !important; }
     .admin-only.show-admin { display: inline-flex !important; }
+    .guest-only { display: inline-flex !important; }
+    .guest-only.hide-guest { display: none !important; }
     .ceo-only { display: none !important; }
     .ceo-only.show-ceo { display: block !important; }
 
@@ -417,6 +419,7 @@
       <nav class="nav-links">
         <a href="javascript:void(0)" data-nav="home" data-i18n="navAbout">Home</a>
         <a href="javascript:void(0)" data-nav="domains" data-i18n="navDomains">Domains</a>
+        <a href="javascript:void(0)" data-nav="login" class="guest-only" data-i18n="navLogin">Admin</a>
         <a href="javascript:void(0)" data-nav="admin" class="admin-only" data-i18n="navDash">Dashboard</a>
         <button class="btn btn-ghost btn-sm admin-only" id="logoutBtn" type="button" data-i18n="navLogout">Log out</button>
         <a class="btn btn-primary" href="javascript:void(0)" data-nav="domains" data-i18n="navBrowse">Browse domains</a>
@@ -664,7 +667,7 @@
           <div class="tab-pane ceo-only" id="tab-team">
             <h2 data-i18n="teamTitle">Team & access</h2>
             <p style="color:var(--muted);font-size:0.9rem;margin-bottom:16px;" data-i18n="teamLead">
-              As CEO you can add or remove admins. They can manage domains and claims but cannot manage the team.
+              As CEO you can add or remove admins. They can manage domains and claims but cannot manage the team. Login uses Firebase Auth — create the user in Firebase Console first.
             </p>
             <form id="addAdminForm" style="margin-bottom:24px;">
               <div class="form-row">
@@ -673,8 +676,8 @@
                   <input id="adminEmail" type="email" required placeholder="admin@example.com" />
                 </div>
                 <div>
-                  <label for="adminPass" data-i18n="password">Password</label>
-                  <input id="adminPass" type="text" required minlength="6" placeholder="Min 6 characters" />
+                  <label for="adminPass" data-i18n="password">Password (Firebase)</label>
+                  <input id="adminPass" type="text" minlength="6" placeholder="Create in Firebase Console" />
                 </div>
               </div>
               <div id="adminAlert"></div>
@@ -739,14 +742,29 @@
     </div>
   </footer>
 
+  <!-- Firebase SDK -->
+  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
+
   <script>
+    /* ========== FIREBASE CONFIG ========== */
+    const firebaseConfig = {
+      apiKey: "AIzaSyCGt_UE2srXAnXtEsaxpAU_n4_kl1_HbbE",
+      authDomain: "domn-bad5e.firebaseapp.com",
+      projectId: "domn-bad5e",
+      storageBucket: "domn-bad5e.firebasestorage.app",
+      messagingSenderId: "534891499679",
+      appId: "1:534891499679:web:c78fd0d207fce9039a52aa",
+      measurementId: "G-5CRHV0191Q"
+    };
+    firebase.initializeApp(firebaseConfig);
+    const auth = firebase.auth();
+
     /* ========== CONFIG & STORE ========== */
-    const CEO_EMAIL = "xrammar@gmail.com";
-    const CEO_PASS = "Admin@2026";
+    const CEO_EMAIL = "xrammar4@gmail.com";
     const STORE_DOMAINS = "am1_domains_v2";
     const STORE_CLAIMS = "am1_claims_v2";
     const STORE_VISITS = "am1_visits_v2";
-    const STORE_SESSION = "am1_admin_session_v2";
     const STORE_ADMINS = "am1_admins_v2";
     const STORE_LANG = "am1_lang_v2";
     const DNS_EDGE = "edge.hostly-dns.net";
@@ -794,7 +812,6 @@
       return [
         {
           email: CEO_EMAIL,
-          password: CEO_PASS,
           role: "ceo",
           addedAt: new Date().toISOString()
         }
@@ -810,6 +827,7 @@
         navDash: "Dashboard",
         navBrowse: "Browse domains",
         navLogout: "Log out",
+        navLogin: "Admin",
         titleHome: "AM1 Domin — Domains & subdomains ready to point",
         titleDomains: "Domains — AM1 Domin",
         titleLogin: "Admin login — AM1 Domin",
@@ -917,7 +935,7 @@
         tabClaims: "Claims",
         tabTeam: "Team",
         teamTitle: "Team & access",
-        teamLead: "As CEO you can add or remove admins. They can manage domains and claims but cannot manage the team.",
+        teamLead: "As CEO you can add or remove admins. They can manage domains and claims but cannot manage the team. Login uses Firebase Auth — create the user in Firebase Console first.",
         addAdmin: "Add admin",
         adminAdded: "Admin added successfully.",
         adminExists: "This email is already an admin.",
@@ -943,6 +961,7 @@
         navDash: "لوحة التحكم",
         navBrowse: "تصفح النطاقات",
         navLogout: "خروج",
+        navLogin: "الإدارة",
         titleHome: "AM1 Domin — نطاقات وساب دومين جاهزة للربط",
         titleDomains: "النطاقات — AM1 Domin",
         titleLogin: "دخول الإدارة — AM1 Domin",
@@ -1050,7 +1069,7 @@
         tabClaims: "الحجوزات",
         tabTeam: "الفريق",
         teamTitle: "الفريق والصلاحيات",
-        teamLead: "كـ CEO يمكنك إضافة أو إزالة أدمن. يستطيعون إدارة النطاقات والحجوزات لكن ليس الفريق.",
+        teamLead: "كـ CEO يمكنك إضافة أو إزالة أدمن. يستطيعون إدارة النطاقات والحجوزات لكن ليس الفريق. تسجيل الدخول عبر Firebase — أنشئ المستخدم أولاً من Firebase Console.",
         addAdmin: "إضافة أدمن",
         adminAdded: "تمت إضافة الأدمن بنجاح.",
         adminExists: "هذا البريد أدمن بالفعل.",
@@ -1167,44 +1186,36 @@
         write(STORE_ADMINS, list);
       }
       // Ensure CEO always exists
-      if (!list.some((a) => a.email === CEO_EMAIL && a.role === "ceo")) {
-        list = list.filter((a) => a.email !== CEO_EMAIL);
-        list.unshift({ email: CEO_EMAIL, password: CEO_PASS, role: "ceo", addedAt: new Date().toISOString() });
+      if (!list.some((a) => a.email.toLowerCase() === CEO_EMAIL.toLowerCase() && a.role === "ceo")) {
+        list = list.filter((a) => a.email.toLowerCase() !== CEO_EMAIL.toLowerCase());
+        list.unshift({ email: CEO_EMAIL, role: "ceo", addedAt: new Date().toISOString() });
         write(STORE_ADMINS, list);
       }
       return list;
     }
     function saveAdmins(list) { write(STORE_ADMINS, list); }
 
-    function getSession() {
-      return localStorage.getItem(STORE_SESSION);
+    function getSessionEmail() {
+      const user = auth.currentUser;
+      return user && user.email ? user.email : null;
     }
     function isAdmin() {
-      const email = getSession();
+      const email = getSessionEmail();
       if (!email) return false;
-      return getAdmins().some((a) => a.email === email);
+      // Only CEO + admins added in Team can access the dashboard
+      return getAdmins().some((a) => a.email.toLowerCase() === email.toLowerCase());
     }
     function isCeo() {
-      const email = getSession();
-      return email === CEO_EMAIL;
+      const email = getSessionEmail();
+      return email && email.toLowerCase() === CEO_EMAIL.toLowerCase();
     }
     function currentAdmin() {
-      const email = getSession();
-      return getAdmins().find((a) => a.email === email) || null;
-    }
-    function loginAdmin(email, password) {
-      const admins = getAdmins();
-      const a = admins.find(
-        (x) => x.email.toLowerCase() === email.trim().toLowerCase() && x.password === password
-      );
-      if (a) {
-        localStorage.setItem(STORE_SESSION, a.email);
-        return true;
-      }
-      return false;
+      const email = getSessionEmail();
+      if (!email) return null;
+      return getAdmins().find((a) => a.email.toLowerCase() === email.toLowerCase()) || null;
     }
     function logoutAdmin() {
-      localStorage.removeItem(STORE_SESSION);
+      return auth.signOut();
     }
 
     function buildClaimDns(domain, claimId) {
@@ -1297,9 +1308,10 @@
       if (admins.some((a) => a.email.toLowerCase() === e)) {
         return { ok: false, error: t("adminExists") };
       }
+      // Note: create the user in Firebase Auth (console or createUserWithEmailAndPassword).
+      // Here we only track role in local list. Password is not stored locally.
       admins.push({
         email: e,
-        password: password,
         role: "admin",
         addedAt: new Date().toISOString()
       });
@@ -1307,8 +1319,8 @@
       return { ok: true };
     }
     function removeAdminUser(email) {
-      if (email === CEO_EMAIL) return { ok: false, error: t("cannotRemoveCeo") };
-      saveAdmins(getAdmins().filter((a) => a.email !== email));
+      if (email.toLowerCase() === CEO_EMAIL.toLowerCase()) return { ok: false, error: t("cannotRemoveCeo") };
+      saveAdmins(getAdmins().filter((a) => a.email.toLowerCase() !== email.toLowerCase()));
       return { ok: true };
     }
 
@@ -1350,6 +1362,9 @@
       const ceo = isCeo();
       document.querySelectorAll(".admin-only").forEach((el) => {
         el.classList.toggle("show-admin", admin);
+      });
+      document.querySelectorAll(".guest-only").forEach((el) => {
+        el.classList.toggle("hide-guest", admin);
       });
       document.querySelectorAll(".ceo-only").forEach((el) => {
         el.classList.toggle("show-ceo", ceo);
@@ -1491,7 +1506,7 @@
         const admins = getAdmins();
         document.getElementById("teamBody").innerHTML = admins
           .map((a) => {
-            const isCeoRow = a.role === "ceo" || a.email === CEO_EMAIL;
+            const isCeoRow = a.role === "ceo" || a.email.toLowerCase() === CEO_EMAIL.toLowerCase();
             return `
             <tr>
               <td>${a.email}</td>
@@ -1513,9 +1528,24 @@
     document.addEventListener("DOMContentLoaded", () => {
       bumpVisits();
       getAdmins();
-      updateAdminVisibility();
       mountLangSwitcher();
       applyLang();
+
+      // Firebase auth state — restore session only for authorized admins
+      auth.onAuthStateChanged((user) => {
+        if (user && !isAdmin()) {
+          // Signed in via Firebase but not in the allowed admin list → sign out
+          auth.signOut();
+          return;
+        }
+        updateAdminVisibility();
+        if (user && isAdmin() && currentPage === "login") {
+          showPage("admin");
+        } else if (!user && currentPage === "admin") {
+          showPage("home");
+        }
+      });
+
       showPage("home");
 
       document.querySelectorAll("[data-nav]").forEach((el) => {
@@ -1623,24 +1653,47 @@
         };
       });
 
-      // Login
+      // Login (Firebase Auth)
       document.getElementById("loginForm").addEventListener("submit", (e) => {
         e.preventDefault();
-        const email = document.getElementById("email").value;
+        const email = document.getElementById("email").value.trim();
         const password = document.getElementById("password").value;
-        if (loginAdmin(email, password)) {
-          updateAdminVisibility();
-          showPage("admin");
-        } else {
-          document.getElementById("loginAlert").innerHTML =
-            '<div class="alert alert-error">' + t("loginFail") + "</div>";
-        }
+        const alertBox = document.getElementById("loginAlert");
+        alertBox.innerHTML = "";
+        const submitBtn = e.target.querySelector('button[type="submit"]');
+        if (submitBtn) submitBtn.disabled = true;
+        auth.signInWithEmailAndPassword(email, password)
+          .then(() => {
+            // Only CEO + listed admins may enter the dashboard
+            if (!isAdmin()) {
+              return auth.signOut().then(() => {
+                throw new Error("not_authorized");
+              });
+            }
+            updateAdminVisibility();
+            showPage("admin");
+          })
+          .catch((err) => {
+            console.error(err);
+            const msg = err && err.message === "not_authorized"
+              ? (getLang() === "ar" ? "هذا الحساب غير مصرح له بالدخول." : "This account is not authorized.")
+              : t("loginFail");
+            alertBox.innerHTML = '<div class="alert alert-error">' + msg + "</div>";
+          })
+          .finally(() => {
+            if (submitBtn) submitBtn.disabled = false;
+          });
       });
 
       document.getElementById("logoutBtn").onclick = () => {
-        logoutAdmin();
-        updateAdminVisibility();
-        showPage("home");
+        logoutAdmin().then(() => {
+          updateAdminVisibility();
+          showPage("home");
+        }).catch((err) => {
+          console.error(err);
+          updateAdminVisibility();
+          showPage("home");
+        });
       };
 
       document.getElementById("invBody").addEventListener("click", (e) => {
