@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>AM1 Domin — Premium domains, ready to point</title>
+  <title>AM1 Domin — Premium domains & subdomains</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Inter:wght@400;500;600&family=Cairo:wght@400;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
@@ -11,7 +11,6 @@
     :root {
       --primary: #cc785c;
       --primary-active: #a9583e;
-      --primary-disabled: #e6dfd8;
       --ink: #141413;
       --body: #3d3d3a;
       --body-strong: #252523;
@@ -24,27 +23,22 @@
       --surface-card: #efe9de;
       --surface-cream-strong: #e8e0d2;
       --surface-dark: #181715;
-      --surface-dark-elevated: #252320;
-      --surface-dark-soft: #1f1e1b;
       --on-primary: #ffffff;
       --on-dark: #faf9f5;
-      --on-dark-soft: #a09d96;
       --accent-teal: #5db8a6;
       --success: #5db872;
       --error: #c64545;
-      --radius-sm: 6px;
+      --warning: #c9a227;
       --radius-md: 8px;
       --radius-lg: 12px;
       --radius-xl: 16px;
       --radius-pill: 9999px;
       --shadow-soft: 0 1px 3px rgba(20, 20, 19, 0.06);
     }
-
     * { box-sizing: border-box; margin: 0; padding: 0; }
     html { scroll-behavior: smooth; }
-
     body {
-      font-family: "Inter", "Cairo", system-ui, -apple-system, sans-serif;
+      font-family: "Inter", "Cairo", system-ui, sans-serif;
       background: var(--canvas);
       color: var(--ink);
       line-height: 1.55;
@@ -52,742 +46,360 @@
       display: flex;
       flex-direction: column;
       font-size: 16px;
-      font-weight: 400;
     }
-
-    html[dir="rtl"] body {
-      font-family: "Cairo", "Inter", system-ui, sans-serif;
-    }
-
+    html[dir="rtl"] body { font-family: "Cairo", "Inter", system-ui, sans-serif; }
     a { color: inherit; text-decoration: none; }
     .container { width: min(1120px, calc(100% - 40px)); margin: 0 auto; }
 
     .nav {
-      position: sticky;
-      top: 0;
-      z-index: 50;
+      position: sticky; top: 0; z-index: 50;
       background: rgba(250, 249, 245, 0.92);
       backdrop-filter: blur(12px);
       border-bottom: 1px solid var(--hairline);
       height: 64px;
     }
-
     .nav-inner {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      height: 64px;
+      display: flex; align-items: center; justify-content: space-between; height: 64px;
     }
-
     .brand {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      font-family: "Cormorant Garamond", "Times New Roman", serif;
-      font-weight: 500;
-      font-size: 1.4rem;
-      letter-spacing: -0.03em;
-      color: var(--ink);
+      font-family: "Cormorant Garamond", serif;
+      font-weight: 500; font-size: 1.4rem; letter-spacing: -0.03em; color: var(--ink);
     }
-
-    .brand-mark {
-      width: 18px;
-      height: 18px;
-      color: var(--ink);
-      flex-shrink: 0;
-    }
-
     .admin-only { display: none !important; }
     .admin-only.show-admin { display: inline-flex !important; }
+    .ceo-only { display: none !important; }
+    .ceo-only.show-ceo { display: block !important; }
 
     .lang-wrap { position: relative; }
-
     .lang-btn {
-      width: 36px;
-      height: 36px;
-      border: 1px solid var(--hairline);
-      background: var(--canvas);
-      border-radius: 50%;
-      cursor: pointer;
-      color: var(--ink);
-      display: grid;
-      place-items: center;
+      width: 36px; height: 36px; border: 1px solid var(--hairline);
+      background: var(--canvas); border-radius: 50%; cursor: pointer;
+      color: var(--ink); display: grid; place-items: center;
     }
-
     .lang-btn:hover { background: var(--surface-soft); }
-    .lang-btn svg {
-      width: 18px;
-      height: 18px;
-      stroke: var(--ink);
-      fill: none;
-      stroke-linecap: round;
-      stroke-linejoin: round;
-    }
-
+    .lang-btn svg { width: 18px; height: 18px; stroke: var(--ink); fill: none; stroke-linecap: round; stroke-linejoin: round; }
     .lang-menu {
-      display: none;
-      position: absolute;
-      top: calc(100% + 8px);
-      inset-inline-end: 0;
-      background: var(--canvas);
-      border: 1px solid var(--hairline);
-      border-radius: var(--radius-lg);
-      box-shadow: var(--shadow-soft);
-      min-width: 180px;
-      padding: 6px;
-      z-index: 60;
+      display: none; position: absolute; top: calc(100% + 8px); inset-inline-end: 0;
+      background: var(--canvas); border: 1px solid var(--hairline);
+      border-radius: var(--radius-lg); box-shadow: var(--shadow-soft);
+      min-width: 180px; padding: 6px; z-index: 60;
     }
-
     .lang-wrap.open .lang-menu { display: block; }
-
     .lang-menu button {
-      width: 100%;
-      text-align: start;
-      background: none;
-      border: none;
-      font: inherit;
-      font-size: 14px;
-      font-weight: 500;
-      padding: 10px 12px;
-      border-radius: var(--radius-md);
-      cursor: pointer;
-      color: var(--ink);
-      display: flex;
-      align-items: center;
-      gap: 10px;
+      width: 100%; text-align: start; background: none; border: none;
+      font: inherit; font-size: 14px; font-weight: 500; padding: 10px 12px;
+      border-radius: var(--radius-md); cursor: pointer; color: var(--ink);
+      display: flex; align-items: center; gap: 10px;
     }
-
-    .lang-menu button:hover,
-    .lang-menu button.active { background: var(--surface-card); }
-
+    .lang-menu button:hover, .lang-menu button.active { background: var(--surface-card); }
     .lang-menu button .flag {
-      width: 22px;
-      height: 16px;
-      border-radius: 2px;
-      overflow: hidden;
-      flex-shrink: 0;
-      border: 1px solid rgba(0,0,0,0.08);
-      display: block;
+      width: 22px; height: 16px; border-radius: 2px; overflow: hidden;
+      flex-shrink: 0; border: 1px solid rgba(0,0,0,0.08); display: block;
     }
-
     .lang-menu button .flag svg { width: 100%; height: 100%; display: block; }
 
-    .nav-links {
-      display: flex;
-      align-items: center;
-      gap: 4px;
-    }
-
+    .nav-links { display: flex; align-items: center; gap: 4px; }
     .nav-links a, .nav-links button.nav-link {
-      padding: 8px 14px;
-      border-radius: var(--radius-md);
-      font-size: 14px;
-      font-weight: 500;
-      color: var(--muted);
-      transition: 0.15s ease;
-      background: none;
-      border: none;
-      cursor: pointer;
-      font-family: inherit;
+      padding: 8px 14px; border-radius: var(--radius-md); font-size: 14px;
+      font-weight: 500; color: var(--muted); transition: 0.15s ease;
+      background: none; border: none; cursor: pointer; font-family: inherit;
     }
-
-    .nav-links a:hover,
-    .nav-links a.active,
-    .nav-links button.nav-link:hover {
-      color: var(--ink);
-      background: var(--surface-card);
+    .nav-links a:hover, .nav-links a.active, .nav-links button.nav-link:hover {
+      color: var(--ink); background: var(--surface-card);
     }
 
     .btn {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 8px;
-      border: none;
-      cursor: pointer;
-      font-family: inherit;
-      font-weight: 500;
-      font-size: 14px;
-      border-radius: 999px;
-      padding: 11px 24px;
-      height: 42px;
+      display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+      border: none; cursor: pointer; font-family: inherit; font-weight: 500;
+      font-size: 14px; border-radius: 999px; padding: 11px 24px; height: 42px;
       transition: background 0.18s ease, transform 0.15s ease, box-shadow 0.18s ease;
-      line-height: 1;
-      letter-spacing: 0.01em;
+      line-height: 1; letter-spacing: 0.01em;
     }
-
-    .btn-primary {
-      background: var(--ink);
-      color: var(--on-dark);
-      box-shadow: none;
-    }
-    .btn-primary:hover {
-      background: #2a2926;
-      transform: translateY(-1px);
-      box-shadow: 0 4px 12px rgba(20, 20, 19, 0.12);
-    }
-
-    .btn-ghost {
-      background: transparent;
-      color: var(--ink);
-      border: 1px solid var(--hairline);
-      border-radius: 999px;
-    }
-    .btn-ghost:hover {
-      background: var(--surface-soft);
-      border-color: var(--surface-cream-strong);
-    }
-
-    .btn-danger {
-      background: #f5e6e4;
-      color: var(--error);
-    }
+    .btn-primary { background: var(--ink); color: var(--on-dark); }
+    .btn-primary:hover { background: #2a2926; transform: translateY(-1px); box-shadow: 0 4px 12px rgba(20,20,19,0.12); }
+    .btn-ghost { background: transparent; color: var(--ink); border: 1px solid var(--hairline); border-radius: 999px; }
+    .btn-ghost:hover { background: var(--surface-soft); border-color: var(--surface-cream-strong); }
+    .btn-danger { background: #f5e6e4; color: var(--error); }
     .btn-danger:hover { background: #edd5d2; }
-
-    .btn-sm {
-      padding: 7px 12px;
-      height: auto;
-      font-size: 13px;
-    }
+    .btn-success { background: rgba(93,184,114,0.15); color: #2d6b3a; }
+    .btn-success:hover { background: rgba(93,184,114,0.25); }
+    .btn-sm { padding: 7px 12px; height: auto; font-size: 13px; }
+    .btn-teal { background: var(--accent-teal); color: #fff; }
+    .btn-teal:hover { background: #4a9e8e; }
 
     .hero { padding: 96px 0 64px; }
-
     .eyebrow {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      background: var(--surface-card);
-      color: var(--ink);
-      font-size: 12px;
-      font-weight: 500;
-      letter-spacing: 1.5px;
-      text-transform: uppercase;
-      padding: 4px 12px;
-      border-radius: var(--radius-pill);
-      margin-bottom: 20px;
+      display: inline-flex; align-items: center; gap: 8px;
+      background: var(--surface-card); color: var(--ink);
+      font-size: 12px; font-weight: 500; letter-spacing: 1.5px; text-transform: uppercase;
+      padding: 4px 12px; border-radius: var(--radius-pill); margin-bottom: 20px;
     }
-
     .hero h1 {
-      font-family: "Cormorant Garamond", "Times New Roman", serif;
-      font-size: clamp(2.25rem, 5vw, 3.75rem);
-      font-weight: 400;
-      line-height: 1.08;
-      letter-spacing: -0.03em;
-      max-width: 720px;
-      margin-bottom: 20px;
-      color: var(--ink);
+      font-family: "Cormorant Garamond", serif;
+      font-size: clamp(2.25rem, 5vw, 3.75rem); font-weight: 400;
+      line-height: 1.08; letter-spacing: -0.03em; max-width: 720px;
+      margin-bottom: 20px; color: var(--ink);
     }
-
-    html[dir="rtl"] .hero h1 {
-      font-family: "Cairo", "Cormorant Garamond", serif;
-      font-weight: 700;
-      letter-spacing: 0;
-    }
-
+    html[dir="rtl"] .hero h1 { font-family: "Cairo", serif; font-weight: 700; letter-spacing: 0; }
     .hero p.lead {
-      font-size: 1.05rem;
-      color: var(--body);
-      max-width: 540px;
-      margin-bottom: 32px;
-      line-height: 1.6;
+      font-size: 1.05rem; color: var(--body); max-width: 540px;
+      margin-bottom: 32px; line-height: 1.6;
     }
-
     .hero-actions { display: flex; gap: 12px; flex-wrap: wrap; }
-
     section { padding: 80px 0; }
-
     .section-head { margin-bottom: 32px; }
-
     .section-head h2 {
-      font-family: "Cormorant Garamond", "Times New Roman", serif;
-      font-size: clamp(1.75rem, 3vw, 2.25rem);
-      font-weight: 400;
-      letter-spacing: -0.02em;
-      margin-bottom: 10px;
-      color: var(--ink);
-      line-height: 1.15;
+      font-family: "Cormorant Garamond", serif;
+      font-size: clamp(1.75rem, 3vw, 2.25rem); font-weight: 400;
+      letter-spacing: -0.02em; margin-bottom: 10px; color: var(--ink); line-height: 1.15;
     }
+    html[dir="rtl"] .section-head h2 { font-family: "Cairo", serif; font-weight: 700; letter-spacing: 0; }
+    .section-head p { color: var(--muted); max-width: 520px; font-size: 1rem; }
 
-    html[dir="rtl"] .section-head h2 {
-      font-family: "Cairo", serif;
-      font-weight: 700;
-      letter-spacing: 0;
-    }
-
-    .section-head p {
-      color: var(--muted);
-      max-width: 520px;
-      font-size: 1rem;
-    }
-
-    .grid-3 {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 20px;
-    }
-
+    .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
     .feature {
-      background: var(--surface-card);
-      border-radius: var(--radius-lg);
-      padding: 32px;
+      background: var(--surface-card); border-radius: var(--radius-lg); padding: 32px;
     }
-
     .feature-icon {
-      width: 40px;
-      height: 40px;
-      border-radius: 50%;
-      background: rgba(204, 120, 92, 0.12);
-      color: var(--primary);
-      display: grid;
-      place-items: center;
-      margin-bottom: 16px;
-      font-weight: 600;
-      font-size: 0.8rem;
-      border: none;
+      width: 40px; height: 40px; border-radius: 50%;
+      background: rgba(204,120,92,0.12); color: var(--primary);
+      display: grid; place-items: center; margin-bottom: 16px;
+      font-weight: 600; font-size: 0.8rem;
       font-family: "Cormorant Garamond", serif;
     }
+    .feature h3 { font-size: 1.1rem; font-weight: 500; margin-bottom: 8px; color: var(--ink); }
+    .feature p { color: var(--body); font-size: 0.95rem; line-height: 1.55; }
 
-    .feature h3 {
-      font-size: 1.1rem;
-      font-weight: 500;
-      margin-bottom: 8px;
-      color: var(--ink);
-    }
-
-    .feature p {
-      color: var(--body);
-      font-size: 0.95rem;
-      line-height: 1.55;
-    }
-
-    .steps {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 16px;
-    }
-
+    .steps { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
     .step {
-      padding: 24px;
-      border-radius: var(--radius-lg);
-      background: var(--surface-soft);
-      border: 1px solid var(--hairline);
+      padding: 24px; border-radius: var(--radius-lg);
+      background: var(--surface-soft); border: 1px solid var(--hairline);
     }
-
     .step-n {
-      width: 32px;
-      height: 32px;
-      border-radius: 50%;
-      background: transparent;
-      color: var(--primary);
-      font-size: 0.85rem;
-      font-weight: 600;
-      display: grid;
-      place-items: center;
-      margin-bottom: 14px;
+      width: 32px; height: 32px; border-radius: 50%;
+      color: var(--primary); font-size: 0.85rem; font-weight: 600;
+      display: grid; place-items: center; margin-bottom: 14px;
       border: 1.5px solid var(--primary);
       font-family: "Cormorant Garamond", serif;
     }
+    .step h3 { font-size: 0.95rem; font-weight: 500; margin-bottom: 6px; color: var(--ink); }
+    .step p { font-size: 0.88rem; color: var(--muted); line-height: 1.5; }
 
-    .step h3 {
-      font-size: 0.95rem;
-      font-weight: 500;
-      margin-bottom: 6px;
-      color: var(--ink);
-    }
-
-    .step p {
-      font-size: 0.88rem;
-      color: var(--muted);
-      line-height: 1.5;
-    }
-
-    .toolbar {
-      display: flex;
-      gap: 12px;
-      margin-bottom: 24px;
-      flex-wrap: wrap;
-    }
-
+    .toolbar { display: flex; gap: 12px; margin-bottom: 24px; flex-wrap: wrap; }
     .search {
-      flex: 1;
-      min-width: 220px;
-      border: 1px solid var(--hairline);
-      border-radius: var(--radius-md);
-      padding: 10px 14px;
-      height: 40px;
-      font: inherit;
-      font-size: 15px;
-      background: var(--canvas);
-      color: var(--ink);
+      flex: 1; min-width: 180px; border: 1px solid var(--hairline);
+      border-radius: var(--radius-md); padding: 10px 14px; height: 40px;
+      font: inherit; font-size: 15px; background: var(--canvas); color: var(--ink);
     }
-
     .search:focus {
-      outline: none;
-      border-color: var(--primary);
-      box-shadow: 0 0 0 3px rgba(204, 120, 92, 0.15);
+      outline: none; border-color: var(--primary);
+      box-shadow: 0 0 0 3px rgba(204,120,92,0.15);
     }
 
     .domain-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-      gap: 16px;
+      display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 16px;
     }
-
     .domain-card {
-      border: 1px solid var(--hairline);
-      border-radius: 14px;
-      padding: 22px 24px;
-      background: var(--canvas);
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
+      border: 1px solid var(--hairline); border-radius: 14px; padding: 22px 24px;
+      background: var(--canvas); display: flex; flex-direction: column; gap: 12px;
       transition: border-color 0.18s ease, box-shadow 0.18s ease;
     }
-
     .domain-card:hover {
       border-color: var(--surface-cream-strong);
-      box-shadow: 0 4px 14px rgba(20, 20, 19, 0.04);
+      box-shadow: 0 4px 14px rgba(20,20,19,0.04);
     }
-
-    .domain-top {
-      display: flex;
-      justify-content: space-between;
-      align-items: flex-start;
-      gap: 8px;
-    }
-
+    .domain-top { display: flex; justify-content: space-between; align-items: flex-start; gap: 8px; }
     .domain-name {
-      font-weight: 600;
-      font-size: 1.1rem;
-      letter-spacing: -0.02em;
-      word-break: break-all;
-      color: var(--ink);
+      font-weight: 600; font-size: 1.1rem; letter-spacing: -0.02em;
+      word-break: break-all; color: var(--ink);
     }
-
     .badge {
-      font-size: 12px;
-      font-weight: 500;
-      padding: 4px 10px;
-      border-radius: var(--radius-pill);
-      white-space: nowrap;
+      font-size: 12px; font-weight: 500; padding: 4px 10px;
+      border-radius: var(--radius-pill); white-space: nowrap;
     }
-
-    .badge-ok {
-      background: rgba(93, 184, 114, 0.15);
-      color: #2d6b3a;
-    }
-
-    .badge-taken {
-      background: rgba(198, 69, 69, 0.12);
-      color: var(--error);
-    }
-
-    .domain-meta {
-      font-size: 0.9rem;
-      color: var(--muted);
-      flex: 1;
-      line-height: 1.5;
+    .badge-ok { background: rgba(93,184,114,0.15); color: #2d6b3a; }
+    .badge-taken { background: rgba(198,69,69,0.12); color: var(--error); }
+    .badge-free { background: rgba(93,184,166,0.18); color: #2a6b5e; }
+    .badge-paid { background: rgba(201,162,39,0.18); color: #7a6210; }
+    .badge-sub { background: rgba(204,120,92,0.15); color: var(--primary-active); }
+    .domain-meta { font-size: 0.9rem; color: var(--muted); flex: 1; line-height: 1.5; }
+    .domain-price {
+      font-weight: 600; font-size: 1rem; color: var(--ink);
+      font-family: "Cormorant Garamond", serif;
     }
 
     .form-card {
-      max-width: 440px;
-      margin: 64px auto;
-      border: 1px solid var(--hairline);
-      border-radius: var(--radius-xl);
-      padding: 36px;
-      background: var(--canvas);
+      max-width: 440px; margin: 64px auto; border: 1px solid var(--hairline);
+      border-radius: var(--radius-xl); padding: 36px; background: var(--canvas);
     }
-
     .form-card h1 {
-      font-family: "Cormorant Garamond", serif;
-      font-size: 1.75rem;
-      font-weight: 400;
-      letter-spacing: -0.02em;
-      margin-bottom: 8px;
-      color: var(--ink);
+      font-family: "Cormorant Garamond", serif; font-size: 1.75rem;
+      font-weight: 400; letter-spacing: -0.02em; margin-bottom: 8px; color: var(--ink);
     }
-
-    html[dir="rtl"] .form-card h1 {
-      font-family: "Cairo", serif;
-      font-weight: 700;
-    }
-
-    .form-card .sub {
-      color: var(--muted);
-      margin-bottom: 28px;
-      font-size: 0.95rem;
-    }
+    html[dir="rtl"] .form-card h1 { font-family: "Cairo", serif; font-weight: 700; }
+    .form-card .sub { color: var(--muted); margin-bottom: 28px; font-size: 0.95rem; }
 
     label {
-      display: block;
-      font-size: 13px;
-      font-weight: 500;
-      margin-bottom: 6px;
-      color: var(--body-strong);
+      display: block; font-size: 13px; font-weight: 500;
+      margin-bottom: 6px; color: var(--body-strong);
     }
-
     input, textarea, select {
-      width: 100%;
-      border: 1px solid var(--hairline);
-      border-radius: var(--radius-md);
-      padding: 10px 14px;
-      font: inherit;
-      font-size: 15px;
-      background: var(--canvas);
-      color: var(--ink);
-      margin-bottom: 14px;
-      height: 40px;
+      width: 100%; border: 1px solid var(--hairline); border-radius: var(--radius-md);
+      padding: 10px 14px; font: inherit; font-size: 15px; background: var(--canvas);
+      color: var(--ink); margin-bottom: 14px; height: 40px;
     }
-
-    textarea {
-      height: auto;
-      min-height: 96px;
-      resize: vertical;
-    }
-
+    textarea { height: auto; min-height: 96px; resize: vertical; }
     input:focus, textarea:focus, select:focus {
-      outline: none;
-      border-color: var(--primary);
-      box-shadow: 0 0 0 3px rgba(204, 120, 92, 0.15);
+      outline: none; border-color: var(--primary);
+      box-shadow: 0 0 0 3px rgba(204,120,92,0.15);
     }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+    .form-row > div { min-width: 0; }
 
     .alert {
-      padding: 10px 14px;
-      border-radius: var(--radius-md);
-      font-size: 0.88rem;
-      margin-bottom: 14px;
+      padding: 10px 14px; border-radius: var(--radius-md);
+      font-size: 0.88rem; margin-bottom: 14px;
     }
-
-    .alert-error {
-      background: rgba(198, 69, 69, 0.1);
-      color: var(--error);
-    }
-
-    .alert-ok {
-      background: rgba(93, 184, 114, 0.12);
-      color: #2d6b3a;
-    }
+    .alert-error { background: rgba(198,69,69,0.1); color: var(--error); }
+    .alert-ok { background: rgba(93,184,114,0.12); color: #2d6b3a; }
+    .alert-info { background: rgba(93,184,166,0.12); color: #2a6b5e; }
 
     .dash-grid {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 14px;
-      margin-bottom: 32px;
+      display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; margin-bottom: 32px;
     }
-
     .dash-card {
-      background: var(--surface-card);
-      border-radius: var(--radius-lg);
-      padding: 20px;
+      background: var(--surface-card); border-radius: var(--radius-lg); padding: 20px;
     }
-
     .dash-card .k {
-      color: var(--muted);
-      font-size: 12px;
-      font-weight: 500;
-      text-transform: uppercase;
-      letter-spacing: 1px;
+      color: var(--muted); font-size: 12px; font-weight: 500;
+      text-transform: uppercase; letter-spacing: 1px;
     }
-
     .dash-card .v {
-      font-family: "Cormorant Garamond", serif;
-      font-size: 2rem;
-      font-weight: 400;
-      letter-spacing: -0.03em;
-      margin-top: 4px;
-      color: var(--ink);
+      font-family: "Cormorant Garamond", serif; font-size: 2rem;
+      font-weight: 400; letter-spacing: -0.03em; margin-top: 4px; color: var(--ink);
     }
+    .dash-card .sub-v { font-size: 0.8rem; color: var(--muted); margin-top: 4px; }
 
     .panel {
-      border: 1px solid var(--hairline);
-      border-radius: var(--radius-lg);
-      padding: 28px;
-      margin-bottom: 20px;
-      background: var(--canvas);
+      border: 1px solid var(--hairline); border-radius: var(--radius-lg);
+      padding: 28px; margin-bottom: 20px; background: var(--canvas);
     }
-
-    .panel h2 {
-      font-size: 1.05rem;
-      font-weight: 500;
-      margin-bottom: 18px;
-      color: var(--ink);
+    .panel h2 { font-size: 1.05rem; font-weight: 500; margin-bottom: 18px; color: var(--ink); }
+    .panel-tabs {
+      display: flex; gap: 4px; margin-bottom: 20px; border-bottom: 1px solid var(--hairline);
+      padding-bottom: 0; flex-wrap: wrap;
     }
-
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      font-size: 0.9rem;
+    .panel-tab {
+      padding: 10px 16px; font-size: 14px; font-weight: 500; color: var(--muted);
+      background: none; border: none; border-bottom: 2px solid transparent;
+      cursor: pointer; font-family: inherit; margin-bottom: -1px;
     }
+    .panel-tab.active { color: var(--ink); border-bottom-color: var(--primary); }
+    .panel-tab:hover { color: var(--ink); }
+    .tab-pane { display: none; }
+    .tab-pane.active { display: block; }
 
+    table { width: 100%; border-collapse: collapse; font-size: 0.9rem; }
     th {
-      text-align: start;
-      font-size: 12px;
-      text-transform: uppercase;
-      letter-spacing: 1px;
-      color: var(--muted);
-      padding: 8px 10px;
-      border-bottom: 1px solid var(--hairline);
-      font-weight: 500;
+      text-align: start; font-size: 12px; text-transform: uppercase;
+      letter-spacing: 1px; color: var(--muted); padding: 8px 10px;
+      border-bottom: 1px solid var(--hairline); font-weight: 500;
     }
-
     td {
-      padding: 14px 10px;
-      border-bottom: 1px solid var(--hairline-soft);
-      vertical-align: middle;
-      color: var(--body);
+      padding: 14px 10px; border-bottom: 1px solid var(--hairline-soft);
+      vertical-align: middle; color: var(--body);
     }
-
     tr:last-child td { border-bottom: none; }
 
     .modal-bg {
-      position: fixed;
-      inset: 0;
-      background: rgba(20, 20, 19, 0.4);
-      display: none;
-      align-items: center;
-      justify-content: center;
-      z-index: 80;
-      padding: 20px;
+      position: fixed; inset: 0; background: rgba(20,20,19,0.4);
+      display: none; align-items: center; justify-content: center;
+      z-index: 80; padding: 20px;
     }
-
     .modal-bg.open { display: flex; }
-
     .modal {
-      background: var(--canvas);
-      border-radius: var(--radius-xl);
-      width: min(480px, 100%);
-      padding: 28px;
-      max-height: 90vh;
-      overflow: auto;
-      border: 1px solid var(--hairline);
+      background: var(--canvas); border-radius: var(--radius-xl);
+      width: min(520px, 100%); padding: 28px; max-height: 90vh;
+      overflow: auto; border: 1px solid var(--hairline);
     }
-
     .modal h3 {
-      font-family: "Cormorant Garamond", serif;
-      font-size: 1.35rem;
-      font-weight: 400;
-      margin-bottom: 6px;
-      color: var(--ink);
+      font-family: "Cormorant Garamond", serif; font-size: 1.35rem;
+      font-weight: 400; margin-bottom: 6px; color: var(--ink);
     }
-
-    html[dir="rtl"] .modal h3 {
-      font-family: "Cairo", serif;
-      font-weight: 700;
-    }
-
-    .modal .hint {
-      color: var(--muted);
-      font-size: 0.9rem;
-      margin-bottom: 18px;
-    }
-
+    html[dir="rtl"] .modal h3 { font-family: "Cairo", serif; font-weight: 700; }
+    .modal .hint { color: var(--muted); font-size: 0.9rem; margin-bottom: 18px; }
     .dns-box {
-      background: var(--surface-dark);
-      color: var(--on-dark);
-      border-radius: var(--radius-lg);
-      padding: 16px;
+      background: var(--surface-dark); color: var(--on-dark);
+      border-radius: var(--radius-lg); padding: 16px;
       font-family: "JetBrains Mono", ui-monospace, monospace;
-      font-size: 0.8rem;
-      line-height: 1.6;
-      margin: 12px 0;
-      white-space: pre-wrap;
+      font-size: 0.8rem; line-height: 1.6; margin: 12px 0; white-space: pre-wrap;
+      position: relative;
     }
+    .copy-btn {
+      position: absolute; top: 8px; inset-inline-end: 8px;
+      padding: 4px 10px; font-size: 11px; border-radius: 6px;
+      background: rgba(255,255,255,0.12); color: var(--on-dark);
+      border: none; cursor: pointer; font-family: inherit;
+    }
+    .copy-btn:hover { background: rgba(255,255,255,0.2); }
 
     footer {
-      margin-top: auto;
-      background: var(--canvas);
-      padding: 36px 0 40px;
-      color: var(--muted);
-      font-size: 0.875rem;
-      border-top: 1px solid var(--hairline);
+      margin-top: auto; background: var(--canvas); padding: 36px 0 40px;
+      color: var(--muted); font-size: 0.875rem; border-top: 1px solid var(--hairline);
     }
-
     .footer-inner {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 10px;
-      text-align: center;
+      display: flex; flex-direction: column; align-items: center; gap: 10px; text-align: center;
     }
-
     footer .brand-foot {
-      color: var(--ink);
-      font-family: "Cormorant Garamond", serif;
-      font-size: 1.05rem;
-      font-weight: 500;
-      letter-spacing: -0.01em;
+      color: var(--ink); font-family: "Cormorant Garamond", serif;
+      font-size: 1.05rem; font-weight: 500;
     }
-
-    footer .copyright {
-      color: var(--muted-soft);
-      font-size: 0.8125rem;
-      font-weight: 400;
-      letter-spacing: 0.01em;
-    }
+    footer .copyright { color: var(--muted-soft); font-size: 0.8125rem; }
 
     .empty {
-      text-align: center;
-      padding: 56px 16px;
-      color: var(--muted);
-      border: 1px dashed var(--hairline);
-      border-radius: var(--radius-lg);
+      text-align: center; padding: 56px 16px; color: var(--muted);
+      border: 1px dashed var(--hairline); border-radius: var(--radius-lg);
       background: var(--surface-soft);
     }
-
     .page { display: none; }
     .page.active { display: block; }
-
     main { flex: 1; }
 
     .cta-band {
-      background: var(--primary);
-      border-radius: var(--radius-lg);
-      padding: 48px 40px;
-      margin: 0 auto 80px;
-      max-width: 1120px;
-      width: calc(100% - 40px);
-      color: var(--on-primary);
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 24px;
-      flex-wrap: wrap;
+      background: var(--primary); border-radius: var(--radius-lg);
+      padding: 48px 40px; margin: 0 auto 80px; max-width: 1120px;
+      width: calc(100% - 40px); color: var(--on-primary);
+      display: flex; align-items: center; justify-content: space-between;
+      gap: 24px; flex-wrap: wrap;
     }
-
     .cta-band h2 {
-      font-family: "Cormorant Garamond", serif;
-      font-size: 1.75rem;
-      font-weight: 400;
-      letter-spacing: -0.02em;
-      margin-bottom: 6px;
+      font-family: "Cormorant Garamond", serif; font-size: 1.75rem;
+      font-weight: 400; letter-spacing: -0.02em; margin-bottom: 6px;
     }
+    html[dir="rtl"] .cta-band h2 { font-family: "Cairo", serif; font-weight: 700; }
+    .cta-band p { opacity: 0.9; font-size: 0.95rem; }
+    .cta-band .btn { background: var(--canvas); color: var(--ink); border: none; }
+    .cta-band .btn:hover { background: var(--surface-card); }
 
-    html[dir="rtl"] .cta-band h2 {
-      font-family: "Cairo", serif;
-      font-weight: 700;
+    .role-badge {
+      font-size: 11px; padding: 2px 8px; border-radius: 4px;
+      background: rgba(204,120,92,0.2); color: var(--primary-active); font-weight: 600;
     }
+    .role-badge.ceo { background: rgba(201,162,39,0.25); color: #7a6210; }
 
-    .cta-band p {
-      opacity: 0.9;
-      font-size: 0.95rem;
+    .activation-steps {
+      background: var(--surface-soft); border-radius: var(--radius-md);
+      padding: 16px; margin: 12px 0; font-size: 0.88rem;
     }
-
-    .cta-band .btn {
-      background: var(--canvas);
-      color: var(--ink);
-      border: none;
-    }
-
-    .cta-band .btn:hover {
-      background: var(--surface-card);
-    }
+    .activation-steps ol { padding-inline-start: 20px; color: var(--body); }
+    .activation-steps li { margin-bottom: 6px; }
 
     @media (max-width: 900px) {
       .grid-3, .steps, .dash-grid { grid-template-columns: 1fr 1fr; }
       .hero { padding: 64px 0 48px; }
       section { padding: 56px 0; }
+      .form-row { grid-template-columns: 1fr; }
     }
-
     @media (max-width: 640px) {
       .nav-links a:not(.btn), .nav-links button.nav-link:not(.btn) { display: none; }
       .grid-3, .steps, .dash-grid { grid-template-columns: 1fr; }
@@ -816,10 +428,10 @@
     <!-- HOME -->
     <div id="page-home" class="page active">
       <div class="container hero">
-        <span class="eyebrow" data-i18n="eyebrow">Domains for sale · Instant DNS</span>
-        <h1 data-i18n="heroTitle">Find the right domain. Point it to your site in minutes.</h1>
+        <span class="eyebrow" data-i18n="eyebrow">Subdomains · Free & Paid · Instant DNS</span>
+        <h1 data-i18n="heroTitle">Get a subdomain. Point it to your site in minutes.</h1>
         <p class="lead" data-i18n="heroLead">
-          AM1 Domin lists domains available from our portfolio. Pick a free name, send a short request, and get the DNS records you need to go live.
+          AM1 Domin offers free and paid subdomains from our portfolio. Claim a name, get DNS records instantly, and go live — activation is automatic once you add the records.
         </p>
         <div class="hero-actions">
           <a class="btn btn-primary" href="javascript:void(0)" data-nav="domains" data-i18n="ctaDomains">Browse domains</a>
@@ -832,24 +444,24 @@
           <div class="section-head">
             <h2 data-i18n="whatTitle">Why AM1 Domin</h2>
             <p data-i18n="whatLead">
-              A simple place to discover and claim domains we own. No auctions, no noise — just clear availability and ready-to-use DNS.
+              Free subdomains for testing and paid premium names. Clear status, instant DNS, and automatic activation after you set the records.
             </p>
           </div>
           <div class="grid-3">
             <article class="feature">
               <div class="feature-icon">01</div>
-              <h3 data-i18n="f1t">Real ownership</h3>
-              <p data-i18n="f1p">Every name on this list is controlled by us. Status updates live from the dashboard.</p>
+              <h3 data-i18n="f1t">Free & paid</h3>
+              <p data-i18n="f1p">Choose free subdomains for projects or premium paid names with priority support.</p>
             </article>
             <article class="feature">
               <div class="feature-icon">02</div>
-              <h3 data-i18n="f2t">Ready DNS</h3>
-              <p data-i18n="f2p">After you claim a domain you get CNAME or nameserver records you can paste into your registrar.</p>
+              <h3 data-i18n="f2t">Auto activation</h3>
+              <p data-i18n="f2p">After claim you get unique DNS records. Add them at your registrar — the domain activates automatically once DNS propagates.</p>
             </article>
             <article class="feature">
               <div class="feature-icon">03</div>
               <h3 data-i18n="f3t">Fast handoff</h3>
-              <p data-i18n="f3p">Request a name with your contact info, then use the DNS block right away — no long checkout flow.</p>
+              <p data-i18n="f3p">Request with your email, copy the DNS block, and go live. No long checkout for free names.</p>
             </article>
           </div>
         </div>
@@ -858,52 +470,63 @@
       <section id="how">
         <div class="container">
           <div class="section-head">
-            <h2 data-i18n="howTitle">How to connect your domain</h2>
-            <p data-i18n="howLead">Four quick steps. DNS usually updates within minutes to a few hours at most registrars.</p>
+            <h2 data-i18n="howTitle">How activation works</h2>
+            <p data-i18n="howLead">Four steps. DNS usually propagates in minutes to a few hours.</p>
           </div>
           <div class="steps">
             <div class="step">
               <div class="step-n">1</div>
               <h3 data-i18n="s1t">Select a domain</h3>
-              <p data-i18n="s1p">Go to Domains and choose a name marked Available.</p>
+              <p data-i18n="s1p">Pick an available free or paid subdomain from the list.</p>
             </div>
             <div class="step">
               <div class="step-n">2</div>
-              <h3 data-i18n="s2t">Submit a request</h3>
-              <p data-i18n="s2p">Enter your name and email to reserve the domain.</p>
+              <h3 data-i18n="s2t">Submit request</h3>
+              <p data-i18n="s2p">Enter name and email. Free names reserve instantly; paid ones show payment note.</p>
             </div>
             <div class="step">
               <div class="step-n">3</div>
-              <h3 data-i18n="s3t">Copy the records</h3>
-              <p data-i18n="s3p">Copy the CNAME or NS block that appears after your request succeeds.</p>
+              <h3 data-i18n="s3t">Copy DNS records</h3>
+              <p data-i18n="s3p">You get a unique CNAME/NS block tied to your claim — ready to paste.</p>
             </div>
             <div class="step">
               <div class="step-n">4</div>
-              <h3 data-i18n="s4t">Allow propagation</h3>
-              <p data-i18n="s4p">Add the records at your registrar and wait for DNS to propagate.</p>
+              <h3 data-i18n="s4t">Automatic go-live</h3>
+              <p data-i18n="s4p">Add records at your registrar. When DNS propagates, the subdomain activates automatically.</p>
             </div>
           </div>
         </div>
       </section>
-</div>
+
+      <div class="cta-band">
+        <div>
+          <h2 data-i18n="ctaBandTitle">Need a subdomain?</h2>
+          <p data-i18n="ctaBandLead">Free options available. Premium names too. DNS in under a minute.</p>
+        </div>
+        <a class="btn" href="javascript:void(0)" data-nav="domains" data-i18n="ctaDomains">Browse domains</a>
+      </div>
+    </div>
 
     <!-- DOMAINS -->
     <div id="page-domains" class="page">
       <div class="container" style="padding: 40px 0 64px;">
         <div class="section-head">
-          <h2 data-i18n="invTitle">Available domains</h2>
-          <p data-i18n="invLead">Request any available domain. You will receive CNAME or nameserver records right after.</p>
+          <h2 data-i18n="invTitle">Available domains & subdomains</h2>
+          <p data-i18n="invLead">Request any available name. Free domains activate after DNS; paid ones after confirmation.</p>
         </div>
-
         <div class="toolbar">
           <input class="search" id="search" type="search" data-i18n-placeholder="searchPh" placeholder="Search domain names…" />
-          <select class="search" id="filter" style="flex: 0 0 180px;">
+          <select class="search" id="filter" style="flex: 0 0 160px;">
             <option value="all" data-i18n="filterAll">All statuses</option>
-            <option value="available" data-i18n="filterAvail">Available only</option>
-            <option value="taken" data-i18n="filterTaken">Claimed only</option>
+            <option value="available" data-i18n="filterAvail">Available</option>
+            <option value="taken" data-i18n="filterTaken">Claimed</option>
+          </select>
+          <select class="search" id="filterType" style="flex: 0 0 140px;">
+            <option value="all" data-i18n="filterTypeAll">All types</option>
+            <option value="free" data-i18n="filterFree">Free only</option>
+            <option value="paid" data-i18n="filterPaid">Paid only</option>
           </select>
         </div>
-
         <div class="domain-grid" id="grid"></div>
         <div class="empty" id="empty" hidden data-i18n="empty">No domains match this search.</div>
       </div>
@@ -913,7 +536,7 @@
     <div id="page-login" class="page">
       <div class="form-card">
         <h1 data-i18n="loginTitle">Admin sign in</h1>
-        <p class="sub" data-i18n="loginSub">Sign in to manage domains and review claim requests.</p>
+        <p class="sub" data-i18n="loginSub">Sign in to manage domains, claims, and team access.</p>
         <form id="loginForm">
           <label for="email" data-i18n="email">Email</label>
           <input id="email" type="email" required autocomplete="username" />
@@ -930,75 +553,153 @@
       <div class="container" style="padding: 36px 0 64px;">
         <div class="section-head">
           <h2 data-i18n="dashTitle">Dashboard</h2>
-          <p data-i18n="dashLead">Manage listings, review claims, and track visits.</p>
+          <p data-i18n="dashLead">Manage listings, subdomains, claims, and team. CEO can invite admins.</p>
         </div>
 
         <div class="dash-grid">
-          <div class="dash-card"><div class="k" data-i18n="kVisits">Site visits</div><div class="v" id="vVisits">0</div></div>
-          <div class="dash-card"><div class="k" data-i18n="kListed">Listed domains</div><div class="v" id="vTotal">0</div></div>
-          <div class="dash-card"><div class="k" data-i18n="kAvail">Available</div><div class="v" id="vAvail">0</div></div>
-          <div class="dash-card"><div class="k" data-i18n="kClaimed">Claimed</div><div class="v" id="vTaken">0</div></div>
-        </div>
-
-        <div class="panel">
-          <h2 data-i18n="addTitle">Add a domain</h2>
-          <form id="addForm">
-            <div style="display:grid; grid-template-columns: 1fr 1fr; gap: 12px;">
-              <div>
-                <label for="newName" data-i18n="domainName">Domain name</label>
-                <input id="newName" required placeholder="example.com" />
-              </div>
-              <div>
-                <label for="newNotes" data-i18n="shortDesc">Short description</label>
-                <input id="newNotes" />
-              </div>
-            </div>
-            <label for="newDns" data-i18n="dnsLabel">DNS records shown after a claim (CNAME / NS)</label>
-            <textarea id="newDns" placeholder="CNAME  @  ->  edge.hostly-dns.net&#10;CNAME  www ->  edge.hostly-dns.net"></textarea>
-            <div id="addAlert"></div>
-            <button class="btn btn-primary" type="submit" data-i18n="publish">Publish domain</button>
-          </form>
-        </div>
-
-        <div class="panel">
-          <h2 data-i18n="invPanel">Inventory</h2>
-          <div style="overflow-x:auto;">
-            <table>
-              <thead>
-                <tr>
-                  <th data-i18n="thDomain">Domain</th>
-                  <th data-i18n="thStatus">Status</th>
-                  <th data-i18n="thBy">Claimed by</th>
-                  <th data-i18n="thWhen">When</th>
-                  <th></th>
-                </tr>
-              </thead>
-              <tbody id="invBody"></tbody>
-            </table>
+          <div class="dash-card">
+            <div class="k" data-i18n="kVisits">Site visits</div>
+            <div class="v" id="vVisits">0</div>
+          </div>
+          <div class="dash-card">
+            <div class="k" data-i18n="kListed">Listed</div>
+            <div class="v" id="vTotal">0</div>
+            <div class="sub-v" id="vSubHint"></div>
+          </div>
+          <div class="dash-card">
+            <div class="k" data-i18n="kAvail">Available</div>
+            <div class="v" id="vAvail">0</div>
+            <div class="sub-v" id="vFreePaid"></div>
+          </div>
+          <div class="dash-card">
+            <div class="k" data-i18n="kClaimed">Sold / Claimed</div>
+            <div class="v" id="vTaken">0</div>
+            <div class="sub-v" id="vRevenue"></div>
           </div>
         </div>
 
         <div class="panel">
-          <h2 data-i18n="claimLog">Claim log</h2>
-          <div style="overflow-x:auto;">
-            <table>
-              <thead>
-                <tr>
-                  <th data-i18n="thDomain">Domain</th>
-                  <th data-i18n="thName">Name</th>
-                  <th data-i18n="thEmail">Email</th>
-                  <th data-i18n="thTime">Time</th>
-                </tr>
-              </thead>
-              <tbody id="claimBody"></tbody>
-            </table>
+          <div class="panel-tabs">
+            <button type="button" class="panel-tab active" data-tab="add" data-i18n="tabAdd">Add domain</button>
+            <button type="button" class="panel-tab" data-tab="inv" data-i18n="tabInv">Inventory</button>
+            <button type="button" class="panel-tab" data-tab="claims" data-i18n="tabClaims">Claims</button>
+            <button type="button" class="panel-tab ceo-only" data-tab="team" data-i18n="tabTeam">Team</button>
+          </div>
+
+          <!-- ADD DOMAIN -->
+          <div class="tab-pane active" id="tab-add">
+            <h2 data-i18n="addTitle">Add domain / subdomain</h2>
+            <form id="addForm">
+              <div class="form-row">
+                <div>
+                  <label for="newName" data-i18n="domainName">Domain / subdomain</label>
+                  <input id="newName" required placeholder="app.example.com or brand.io" />
+                </div>
+                <div>
+                  <label for="newType" data-i18n="priceType">Type</label>
+                  <select id="newType">
+                    <option value="free" data-i18n="typeFree">Free</option>
+                    <option value="paid" data-i18n="typePaid">Paid</option>
+                  </select>
+                </div>
+              </div>
+              <div class="form-row">
+                <div>
+                  <label for="newPrice" data-i18n="priceLabel">Price (USD, if paid)</label>
+                  <input id="newPrice" type="number" min="0" step="0.01" placeholder="0" value="0" />
+                </div>
+                <div>
+                  <label for="newNotes" data-i18n="shortDesc">Short description</label>
+                  <input id="newNotes" placeholder="Ideal for SaaS…" />
+                </div>
+              </div>
+              <label for="newDns" data-i18n="dnsLabel">Default DNS template (CNAME / NS) — unique target added on claim</label>
+              <textarea id="newDns" placeholder="CNAME  @  ->  edge.hostly-dns.net&#10;CNAME  www ->  edge.hostly-dns.net"></textarea>
+              <div id="addAlert"></div>
+              <button class="btn btn-primary" type="submit" data-i18n="publish">Publish domain</button>
+            </form>
+          </div>
+
+          <!-- INVENTORY -->
+          <div class="tab-pane" id="tab-inv">
+            <h2 data-i18n="invPanel">All domains</h2>
+            <div style="overflow-x:auto;">
+              <table>
+                <thead>
+                  <tr>
+                    <th data-i18n="thDomain">Domain</th>
+                    <th data-i18n="thType">Type</th>
+                    <th data-i18n="thStatus">Status</th>
+                    <th data-i18n="thBy">Claimed by</th>
+                    <th data-i18n="thWhen">When</th>
+                    <th></th>
+                  </tr>
+                </thead>
+                <tbody id="invBody"></tbody>
+              </table>
+            </div>
+          </div>
+
+          <!-- CLAIMS -->
+          <div class="tab-pane" id="tab-claims">
+            <h2 data-i18n="claimLog">Claim log</h2>
+            <div style="overflow-x:auto;">
+              <table>
+                <thead>
+                  <tr>
+                    <th data-i18n="thDomain">Domain</th>
+                    <th data-i18n="thName">Name</th>
+                    <th data-i18n="thEmail">Email</th>
+                    <th data-i18n="thType">Type</th>
+                    <th data-i18n="thTime">Time</th>
+                    <th data-i18n="thActivation">Activation</th>
+                  </tr>
+                </thead>
+                <tbody id="claimBody"></tbody>
+              </table>
+            </div>
+          </div>
+
+          <!-- TEAM (CEO only) -->
+          <div class="tab-pane ceo-only" id="tab-team">
+            <h2 data-i18n="teamTitle">Team & access</h2>
+            <p style="color:var(--muted);font-size:0.9rem;margin-bottom:16px;" data-i18n="teamLead">
+              As CEO you can add or remove admins. They can manage domains and claims but cannot manage the team.
+            </p>
+            <form id="addAdminForm" style="margin-bottom:24px;">
+              <div class="form-row">
+                <div>
+                  <label for="adminEmail" data-i18n="email">Email</label>
+                  <input id="adminEmail" type="email" required placeholder="admin@example.com" />
+                </div>
+                <div>
+                  <label for="adminPass" data-i18n="password">Password</label>
+                  <input id="adminPass" type="text" required minlength="6" placeholder="Min 6 characters" />
+                </div>
+              </div>
+              <div id="adminAlert"></div>
+              <button class="btn btn-primary" type="submit" data-i18n="addAdmin">Add admin</button>
+            </form>
+            <div style="overflow-x:auto;">
+              <table>
+                <thead>
+                  <tr>
+                    <th data-i18n="thEmail">Email</th>
+                    <th data-i18n="thRole">Role</th>
+                    <th data-i18n="thAdded">Added</th>
+                    <th></th>
+                  </tr>
+                </thead>
+                <tbody id="teamBody"></tbody>
+              </table>
+            </div>
           </div>
         </div>
       </div>
     </div>
   </main>
 
-  <!-- MODAL -->
+  <!-- MODAL CLAIM -->
   <div class="modal-bg" id="modal">
     <div class="modal">
       <h3 id="modalTitle">Request domain</h3>
@@ -1016,14 +717,22 @@
         </div>
       </form>
       <div id="successBox" hidden>
-        <div class="alert alert-ok" data-i18n="reserved">Reserved. Add these DNS records at your registrar.</div>
-        <div class="dns-box" id="dnsOut"></div>
+        <div class="alert alert-ok" id="successMsg" data-i18n="reserved">Reserved. Add these DNS records at your registrar.</div>
+        <div class="activation-steps">
+          <strong data-i18n="actTitle">Automatic activation</strong>
+          <ol>
+            <li data-i18n="act1">Copy the DNS records below.</li>
+            <li data-i18n="act2">Add them at your domain registrar (or hosting DNS panel).</li>
+            <li data-i18n="act3">When DNS propagates (minutes–hours), the subdomain activates automatically.</li>
+          </ol>
+        </div>
+        <div class="dns-box" id="dnsOut"><button type="button" class="copy-btn" id="copyDns" data-i18n="copy">Copy</button></div>
         <button type="button" class="btn btn-primary" id="doneBtn" data-i18n="done">Done</button>
       </div>
     </div>
   </div>
 
-    <footer>
+  <footer>
     <div class="container footer-inner">
       <span class="brand-foot" data-i18n="footL">AM1 Domin</span>
       <span class="copyright" data-i18n="footCopy">© 2026 AMMaR MoHamD. All rights reserved.</span>
@@ -1032,37 +741,65 @@
 
   <script>
     /* ========== CONFIG & STORE ========== */
-    const ADMIN_EMAIL = "xrammar4@gmail.com";
-    const ADMIN_PASS = "Admin@2026";
-    const STORE_DOMAINS = "am1_domains_v1";
-    const STORE_CLAIMS = "am1_claims_v1";
-    const STORE_VISITS = "am1_visits_v1";
-    const STORE_SESSION = "am1_admin_session";
-    const STORE_LANG = "am1_lang_v1";
+    const CEO_EMAIL = "xrammar@gmail.com";
+    const CEO_PASS = "Admin@2026";
+    const STORE_DOMAINS = "am1_domains_v2";
+    const STORE_CLAIMS = "am1_claims_v2";
+    const STORE_VISITS = "am1_visits_v2";
+    const STORE_SESSION = "am1_admin_session_v2";
+    const STORE_ADMINS = "am1_admins_v2";
+    const STORE_LANG = "am1_lang_v2";
+    const DNS_EDGE = "edge.hostly-dns.net";
 
     const DEFAULT_DOMAINS = [
       {
         id: "d1",
-        name: "brightforge.io",
-        notes: "Short brandable .io — ideal for SaaS or creative studios.",
-        dns: "CNAME  @  ->  edge.hostly-dns.net\nCNAME  www ->  edge.hostly-dns.net\nTTL  3600",
-        status: "available"
+        name: "app.brightforge.io",
+        notes: "Free subdomain — ideal for SaaS demos and MVPs.",
+        dns: "CNAME  @  ->  " + DNS_EDGE + "\nCNAME  www ->  " + DNS_EDGE + "\nTTL  3600",
+        status: "available",
+        type: "free",
+        price: 0
       },
       {
         id: "d2",
-        name: "northpeak.app",
-        notes: "Clean product name. Perfect for mobile or web apps.",
-        dns: "CNAME  @  ->  edge.hostly-dns.net\nCNAME  www ->  edge.hostly-dns.net\nTTL  3600",
-        status: "available"
+        name: "demo.northpeak.app",
+        notes: "Free product subdomain for mobile or web apps.",
+        dns: "CNAME  @  ->  " + DNS_EDGE + "\nCNAME  www ->  " + DNS_EDGE + "\nTTL  3600",
+        status: "available",
+        type: "free",
+        price: 0
       },
       {
         id: "d3",
         name: "lumenhost.net",
-        notes: "Hosting-style name. Strong for infrastructure brands.",
+        notes: "Premium root domain. Strong for infrastructure brands.",
         dns: "NS  ns1.hostly-dns.net\nNS  ns2.hostly-dns.net",
-        status: "available"
+        status: "available",
+        type: "paid",
+        price: 49
+      },
+      {
+        id: "d4",
+        name: "studio.brightforge.io",
+        notes: "Paid premium subdomain with priority DNS support.",
+        dns: "CNAME  @  ->  " + DNS_EDGE + "\nCNAME  www ->  " + DNS_EDGE,
+        status: "available",
+        type: "paid",
+        price: 19
       }
     ];
+
+    function defaultAdmins() {
+      return [
+        {
+          email: CEO_EMAIL,
+          password: CEO_PASS,
+          role: "ceo",
+          addedAt: new Date().toISOString()
+        }
+      ];
+    }
 
     /* ========== I18N ========== */
     const I18N = {
@@ -1073,71 +810,75 @@
         navDash: "Dashboard",
         navBrowse: "Browse domains",
         navLogout: "Log out",
-        titleHome: "AM1 Domin — Domains ready to point",
+        titleHome: "AM1 Domin — Domains & subdomains ready to point",
         titleDomains: "Domains — AM1 Domin",
         titleLogin: "Admin login — AM1 Domin",
         titleAdmin: "Dashboard — AM1 Domin",
-        eyebrow: "Domains for sale · Instant DNS",
-        heroTitle: "Find the right domain. Point it to your site in minutes.",
-        heroLead: "AM1 Domin lists domains available from our portfolio. Pick a free name, send a short request, and get the DNS records you need to go live.",
+        eyebrow: "Subdomains · Free & Paid · Instant DNS",
+        heroTitle: "Get a subdomain. Point it to your site in minutes.",
+        heroLead: "AM1 Domin offers free and paid subdomains from our portfolio. Claim a name, get DNS records instantly, and go live — activation is automatic once you add the records.",
         ctaDomains: "Browse domains",
         ctaHow: "How it works",
         whatTitle: "Why AM1 Domin",
-        whatLead: "A simple place to discover and claim domains we own. No auctions, no noise — just clear availability and ready-to-use DNS.",
-        f1t: "Real ownership",
-        f1p: "Every name on this list is controlled by us. Status updates live from the dashboard.",
-        f2t: "Ready DNS",
-        f2p: "After you claim a domain you get CNAME or nameserver records you can paste into your registrar.",
+        whatLead: "Free subdomains for testing and paid premium names. Clear status, instant DNS, and automatic activation after you set the records.",
+        f1t: "Free & paid",
+        f1p: "Choose free subdomains for projects or premium paid names with priority support.",
+        f2t: "Auto activation",
+        f2p: "After claim you get unique DNS records. Add them at your registrar — the domain activates automatically once DNS propagates.",
         f3t: "Fast handoff",
-        f3p: "Request a name with your contact info, then use the DNS block right away — no long checkout flow.",
-        howTitle: "How to connect your domain",
-        howLead: "Four quick steps. DNS usually updates within minutes to a few hours at most registrars.",
+        f3p: "Request with your email, copy the DNS block, and go live. No long checkout for free names.",
+        howTitle: "How activation works",
+        howLead: "Four steps. DNS usually propagates in minutes to a few hours.",
         s1t: "Select a domain",
-        s1p: "Go to Domains and choose a name marked Available.",
-        s2t: "Submit a request",
-        s2p: "Enter your name and email to reserve the domain.",
-        s3t: "Copy the records",
-        s3p: "Copy the CNAME or NS block that appears after your request succeeds.",
-        s4t: "Allow propagation",
-        s4p: "Add the records at your registrar and wait for DNS to propagate.",
+        s1p: "Pick an available free or paid subdomain from the list.",
+        s2t: "Submit request",
+        s2p: "Enter name and email. Free names reserve instantly; paid ones show payment note.",
+        s3t: "Copy DNS records",
+        s3p: "You get a unique CNAME/NS block tied to your claim — ready to paste.",
+        s4t: "Automatic go-live",
+        s4p: "Add records at your registrar. When DNS propagates, the subdomain activates automatically.",
         footL: "AM1 Domin",
-        footR: "Switch language from the globe icon",
         footCopy: "© 2026 AMMaR MoHamD. All rights reserved.",
-        invTitle: "Available domains",
-        invLead: "Request any available domain. You will receive CNAME or nameserver records right after.",
+        invTitle: "Available domains & subdomains",
+        invLead: "Request any available name. Free domains activate after DNS; paid ones after confirmation.",
         searchPh: "Search domains…",
         filterAll: "All",
         filterAvail: "Available",
         filterTaken: "Claimed",
+        filterTypeAll: "All types",
+        filterFree: "Free only",
+        filterPaid: "Paid only",
         empty: "No domains match your search.",
         available: "Available",
         claimed: "Claimed",
         claimedBy: "Claimed by",
-        requestBtn: "Request domain",
+        requestBtn: "Request",
         requestTitle: "Claim",
-        requestHint: "After you submit, the domain is reserved and DNS records show below.",
+        requestHint: "After you submit, the domain is reserved and unique DNS records appear below. Activation is automatic once DNS propagates.",
         yourName: "Your name",
         email: "Email",
         cancel: "Cancel",
         requestSubmit: "Confirm request",
-        reserved: "Domain reserved. Add these DNS records at your registrar.",
+        reserved: "Domain reserved. Add these DNS records — activation is automatic after propagation.",
+        reservedPaid: "Reserved (paid). Complete payment if required, then add DNS records. Activation is automatic after propagation.",
         done: "Done",
+        copy: "Copy",
         notAvail: "This domain is no longer available.",
         loginTitle: "Admin sign in",
-        loginSub: "Sign in to manage domains and review claim requests.",
+        loginSub: "Sign in to manage domains, claims, and team access.",
         password: "Password",
         signIn: "Sign in",
         loginFail: "Wrong email or password.",
         dashTitle: "Dashboard",
-        dashLead: "Manage listings, review claims, and track visits.",
+        dashLead: "Manage listings, subdomains, claims, and team. CEO can invite admins.",
         kVisits: "Visits",
         kListed: "Listed",
         kAvail: "Available",
-        kClaimed: "Claimed",
-        addTitle: "Add domain",
-        domainName: "Domain name",
+        kClaimed: "Sold / Claimed",
+        addTitle: "Add domain / subdomain",
+        domainName: "Domain / subdomain",
         shortDesc: "Description",
-        dnsLabel: "DNS records (CNAME / NS) shown after a claim",
+        dnsLabel: "Default DNS template (unique target added on claim)",
         publish: "Add to list",
         nameRequired: "Enter a domain name.",
         alreadyListed: "This domain is already on the list.",
@@ -1150,6 +891,10 @@
         thName: "Name",
         thEmail: "Email",
         thTime: "Time",
+        thType: "Type",
+        thRole: "Role",
+        thAdded: "Added",
+        thActivation: "Activation",
         release: "Release",
         remove: "Remove",
         noDomains: "No domains listed yet.",
@@ -1159,8 +904,37 @@
         langEn: "English",
         langAr: "العربية",
         defaultNotes: "Quality domain ready to point.",
-        ctaBandTitle: "Looking for a domain?",
-        ctaBandLead: "Open the list, pick a name, and get DNS in under a minute."
+        ctaBandTitle: "Need a subdomain?",
+        ctaBandLead: "Free options available. Premium names too. DNS in under a minute.",
+        priceType: "Type",
+        typeFree: "Free",
+        typePaid: "Paid",
+        priceLabel: "Price (USD, if paid)",
+        free: "Free",
+        paid: "Paid",
+        tabAdd: "Add domain",
+        tabInv: "Inventory",
+        tabClaims: "Claims",
+        tabTeam: "Team",
+        teamTitle: "Team & access",
+        teamLead: "As CEO you can add or remove admins. They can manage domains and claims but cannot manage the team.",
+        addAdmin: "Add admin",
+        adminAdded: "Admin added successfully.",
+        adminExists: "This email is already an admin.",
+        adminRemoved: "Admin removed.",
+        cannotRemoveCeo: "Cannot remove the CEO.",
+        roleCeo: "CEO",
+        roleAdmin: "Admin",
+        actTitle: "Automatic activation",
+        act1: "Copy the DNS records below.",
+        act2: "Add them at your domain registrar (or hosting DNS panel).",
+        act3: "When DNS propagates (minutes–hours), the subdomain activates automatically.",
+        activationPending: "Pending DNS",
+        activationReady: "Records issued",
+        freeLabel: "Free",
+        paidLabel: "Paid",
+        subdomains: "subdomains",
+        revenueHint: "paid claimed"
       },
       ar: {
         brand: "AM1 Domin",
@@ -1169,71 +943,75 @@
         navDash: "لوحة التحكم",
         navBrowse: "تصفح النطاقات",
         navLogout: "خروج",
-        titleHome: "AM1 Domin — نطاقات جاهزة للربط",
+        titleHome: "AM1 Domin — نطاقات وساب دومين جاهزة للربط",
         titleDomains: "النطاقات — AM1 Domin",
         titleLogin: "دخول الإدارة — AM1 Domin",
         titleAdmin: "لوحة التحكم — AM1 Domin",
-        eyebrow: "نطاقات للبيع · DNS فوري",
-        heroTitle: "اختر النطاق المناسب. اربطه بموقعك خلال دقائق.",
-        heroLead: "AM1 Domin يعرض نطاقاً من محفظتنا. اختر اسماً متاحاً، أرسل طلباً قصيراً، واحصل على سجلات DNS اللازمة للتشغيل.",
+        eyebrow: "ساب دومين · مجاني ومدفوع · DNS فوري",
+        heroTitle: "احصل على ساب دومين. اربطه بموقعك خلال دقائق.",
+        heroLead: "AM1 Domin يوفّر ساب دومين مجاني ومدفوع من محفظتنا. احجز اسماً، احصل على سجلات DNS فوراً، وانطلق — التفعيل تلقائي بعد إضافة السجلات.",
         ctaDomains: "تصفح النطاقات",
         ctaHow: "كيف يعمل",
         whatTitle: "لماذا AM1 Domin",
-        whatLead: "مكان بسيط لاكتشاف وحجز النطاقات التي نملكها. بلا مزادات ولا ضوضاء — توفر واضح وسجلات DNS جاهزة.",
-        f1t: "ملكية حقيقية",
-        f1p: "كل اسم في القائمة تحت سيطرتنا. الحالة تتحدث مباشرة من لوحة التحكم.",
-        f2t: "DNS جاهز",
-        f2p: "بعد حجز النطاق تصلك سجلات CNAME أو خوادم أسماء تلصقها عند المسجّل.",
+        whatLead: "ساب دومين مجاني للتجربة وأسماء مدفوعة مميزة. حالة واضحة، DNS فوري، وتفعيل تلقائي بعد ضبط السجلات.",
+        f1t: "مجاني ومدفوع",
+        f1p: "اختر ساب دومين مجاني للمشاريع أو أسماء مدفوعة مع دعم أولوية.",
+        f2t: "تفعيل تلقائي",
+        f2p: "بعد الحجز تحصل على سجلات DNS فريدة. أضفها عند المسجّل — يتفعّل النطاق تلقائياً بعد انتشار DNS.",
         f3t: "تسليم سريع",
-        f3p: "اطلب الاسماء مع بياناتك، ثم استخدم صندوق DNS مباشرة — بلا خطوات شراء طويلة.",
-        howTitle: "كيف تربط النطاق",
-        howLead: "أربع خطوات سريعة. عادةً ينتشر DNS خلال دقائق إلى ساعات عند أغلب المسجلين.",
+        f3p: "اطلب بالبريد، انسخ صندوق DNS، وانطلق. بلا خطوات شراء طويلة للمجاني.",
+        howTitle: "كيف يعمل التفعيل",
+        howLead: "أربع خطوات. عادةً ينتشر DNS خلال دقائق إلى ساعات.",
         s1t: "اختر نطاقاً",
-        s1p: "افتح صفحة النطاقات واختر اسماً حالته متوفر.",
+        s1p: "اختر ساب دومين متوفر مجاني أو مدفوع من القائمة.",
         s2t: "أرسل الطلب",
-        s2p: "أدخل اسمك وبريدك لحجز النطاق.",
+        s2p: "أدخل الاسم والبريد. المجاني يُحجز فوراً؛ المدفوع يظهر ملاحظة الدفع.",
         s3t: "انسخ السجلات",
-        s3p: "انسخ صندوق CNAME أو NS الذي يظهر بعد نجاح الطلب.",
-        s4t: "انتظر الانتشار",
-        s4p: "أضف السجلات عند المسجّل وانتظر انتشار DNS.",
+        s3p: "تحصل على صندوق CNAME/NS فريد مرتبط بطلبك — جاهز للصق.",
+        s4t: "تشغيل تلقائي",
+        s4p: "أضف السجلات عند المسجّل. عند انتشار DNS يتفعّل الساب دومين تلقائياً.",
         footL: "AM1 Domin",
-        footR: "بدّل اللغة من أيقونة الكرة الأرضية",
         footCopy: "© 2026 AMMaR MoHamD. All rights reserved.",
-        invTitle: "النطاقات المتوفرة",
-        invLead: "اطلب أي نطاق متوفر. ستصلك سجلات CNAME أو خوادم الأسماء مباشرة بعد الطلب.",
+        invTitle: "النطاقات والساب دومين المتوفرة",
+        invLead: "اطلب أي اسم متوفر. المجاني يتفعّل بعد DNS؛ المدفوع بعد التأكيد.",
         searchPh: "ابحث عن نطاق…",
         filterAll: "الكل",
         filterAvail: "متوفر",
         filterTaken: "محجوز",
+        filterTypeAll: "كل الأنواع",
+        filterFree: "مجاني فقط",
+        filterPaid: "مدفوع فقط",
         empty: "لا توجد نطاقات مطابقة لبحثك.",
         available: "متوفر",
         claimed: "محجوز",
         claimedBy: "محجوز بواسطة",
-        requestBtn: "اطلب النطاق",
+        requestBtn: "اطلب",
         requestTitle: "حجز",
-        requestHint: "بعد الإرسال يُحجز النطاق وتظهر سجلات DNS بالأسفل.",
+        requestHint: "بعد الإرسال يُحجز النطاق وتظهر سجلات DNS فريدة. التفعيل تلقائي بعد انتشار DNS.",
         yourName: "اسمك",
         email: "البريد الإلكتروني",
         cancel: "إلغاء",
         requestSubmit: "تأكيد الطلب",
-        reserved: "تم حجز النطاق. أضف سجلات DNS هذه عند المسجّل.",
+        reserved: "تم حجز النطاق. أضف سجلات DNS — التفعيل تلقائي بعد الانتشار.",
+        reservedPaid: "محجوز (مدفوع). أكمل الدفع إن لزم، ثم أضف سجلات DNS. التفعيل تلقائي بعد الانتشار.",
         done: "تم",
+        copy: "نسخ",
         notAvail: "هذا النطاق لم يعد متوفراً.",
         loginTitle: "تسجيل دخول الإدارة",
-        loginSub: "سجّل الدخول لإدارة النطاقات ومراجعة طلبات الحجز.",
+        loginSub: "سجّل الدخول لإدارة النطاقات والحجوزات وفريق العمل.",
         password: "كلمة المرور",
         signIn: "دخول",
         loginFail: "البريد أو كلمة المرور غير صحيحة.",
         dashTitle: "لوحة التحكم",
-        dashLead: "أدر القائمة، راجع الحجوزات، وتابع الزيارات.",
+        dashLead: "أدر القائمة والساب دومين والحجوزات والفريق. الـ CEO يستطيع دعوة أدمن.",
         kVisits: "الزيارات",
         kListed: "المعروضة",
         kAvail: "متوفرة",
-        kClaimed: "محجوزة",
-        addTitle: "إضافة نطاق",
-        domainName: "اسم النطاق",
+        kClaimed: "مباعة / محجوزة",
+        addTitle: "إضافة نطاق / ساب دومين",
+        domainName: "النطاق / الساب دومين",
         shortDesc: "الوصف",
-        dnsLabel: "سجلات DNS (CNAME / NS) بعد الحجز",
+        dnsLabel: "قالب DNS الافتراضي (يُضاف هدف فريد عند الحجز)",
         publish: "إضافة للقائمة",
         nameRequired: "أدخل اسم النطاق.",
         alreadyListed: "هذا النطاق موجود في القائمة.",
@@ -1246,6 +1024,10 @@
         thName: "الاسم",
         thEmail: "البريد",
         thTime: "الوقت",
+        thType: "النوع",
+        thRole: "الدور",
+        thAdded: "أُضيف",
+        thActivation: "التفعيل",
         release: "إتاحة",
         remove: "حذف",
         noDomains: "لا توجد نطاقات في القائمة بعد.",
@@ -1255,8 +1037,37 @@
         langEn: "English",
         langAr: "العربية",
         defaultNotes: "نطاق جاهز للربط.",
-        ctaBandTitle: "تبحث عن نطاق؟",
-        ctaBandLead: "افتح القائمة، اختر اسماً، واحصل على DNS في أقل من دقيقة."
+        ctaBandTitle: "تحتاج ساب دومين؟",
+        ctaBandLead: "خيارات مجانية متاحة. وأسماء مميزة أيضاً. DNS في أقل من دقيقة.",
+        priceType: "النوع",
+        typeFree: "مجاني",
+        typePaid: "مدفوع",
+        priceLabel: "السعر (دولار، إن كان مدفوعاً)",
+        free: "مجاني",
+        paid: "مدفوع",
+        tabAdd: "إضافة نطاق",
+        tabInv: "المخزون",
+        tabClaims: "الحجوزات",
+        tabTeam: "الفريق",
+        teamTitle: "الفريق والصلاحيات",
+        teamLead: "كـ CEO يمكنك إضافة أو إزالة أدمن. يستطيعون إدارة النطاقات والحجوزات لكن ليس الفريق.",
+        addAdmin: "إضافة أدمن",
+        adminAdded: "تمت إضافة الأدمن بنجاح.",
+        adminExists: "هذا البريد أدمن بالفعل.",
+        adminRemoved: "تم إزالة الأدمن.",
+        cannotRemoveCeo: "لا يمكن إزالة الـ CEO.",
+        roleCeo: "المالك (CEO)",
+        roleAdmin: "أدمن",
+        actTitle: "التفعيل التلقائي",
+        act1: "انسخ سجلات DNS أدناه.",
+        act2: "أضفها عند مسجّل النطاق (أو لوحة DNS للاستضافة).",
+        act3: "عند انتشار DNS (دقائق–ساعات) يتفعّل الساب دومين تلقائياً.",
+        activationPending: "بانتظار DNS",
+        activationReady: "تم إصدار السجلات",
+        freeLabel: "مجاني",
+        paidLabel: "مدفوع",
+        subdomains: "ساب دومين",
+        revenueHint: "مدفوع محجوز"
       }
     };
 
@@ -1265,18 +1076,15 @@
       const saved = localStorage.getItem(STORE_LANG);
       return saved === "ar" ? "ar" : "en";
     }
-
     function setLang(lang) {
       localStorage.setItem(STORE_LANG, lang === "ar" ? "ar" : "en");
       applyLang();
       window.dispatchEvent(new CustomEvent("langchange"));
     }
-
     function t(key) {
       const lang = getLang();
       return (I18N[lang] && I18N[lang][key]) || I18N.en[key] || key;
     }
-
     function applyLang() {
       const lang = getLang();
       document.documentElement.lang = lang;
@@ -1290,27 +1098,34 @@
       document.querySelectorAll(".lang-menu button").forEach((btn) => {
         btn.classList.toggle("active", btn.dataset.setLang === lang);
       });
-      // Update filter options
       const filter = document.getElementById("filter");
       if (filter) {
         filter.options[0].text = t("filterAll");
         filter.options[1].text = t("filterAvail");
         filter.options[2].text = t("filterTaken");
       }
+      const filterType = document.getElementById("filterType");
+      if (filterType) {
+        filterType.options[0].text = t("filterTypeAll");
+        filterType.options[1].text = t("filterFree");
+        filterType.options[2].text = t("filterPaid");
+      }
+      const newType = document.getElementById("newType");
+      if (newType) {
+        newType.options[0].text = t("typeFree");
+        newType.options[1].text = t("typePaid");
+      }
       updateTitle();
     }
 
     let currentPage = "home";
-
     function updateTitle() {
       const map = { home: "titleHome", domains: "titleDomains", login: "titleLogin", admin: "titleAdmin" };
       document.title = t(map[currentPage] || "titleHome");
     }
-
     function uid() {
       return "id_" + Math.random().toString(36).slice(2, 10) + Date.now().toString(36);
     }
-
     function read(key, fallback) {
       try {
         const raw = localStorage.getItem(key);
@@ -1319,78 +1134,122 @@
         return fallback;
       }
     }
-
     function write(key, value) {
       localStorage.setItem(key, JSON.stringify(value));
     }
 
     function getDomains() {
-      const list = read(STORE_DOMAINS, null);
+      let list = read(STORE_DOMAINS, null);
       if (!list) {
         write(STORE_DOMAINS, DEFAULT_DOMAINS);
         return DEFAULT_DOMAINS.slice();
       }
-      return list;
+      return list.map((d) => ({
+        type: d.type || "free",
+        price: d.price != null ? d.price : 0,
+        ...d
+      }));
     }
-
-    function saveDomains(list) {
-      write(STORE_DOMAINS, list);
-    }
-
-    function getClaims() {
-      return read(STORE_CLAIMS, []);
-    }
-
-    function saveClaims(list) {
-      write(STORE_CLAIMS, list);
-    }
-
+    function saveDomains(list) { write(STORE_DOMAINS, list); }
+    function getClaims() { return read(STORE_CLAIMS, []); }
+    function saveClaims(list) { write(STORE_CLAIMS, list); }
     function bumpVisits() {
       const n = Number(localStorage.getItem(STORE_VISITS) || 0) + 1;
       localStorage.setItem(STORE_VISITS, String(n));
       return n;
     }
+    function getVisits() { return Number(localStorage.getItem(STORE_VISITS) || 0); }
 
-    function getVisits() {
-      return Number(localStorage.getItem(STORE_VISITS) || 0);
+    function getAdmins() {
+      let list = read(STORE_ADMINS, null);
+      if (!list || !list.length) {
+        list = defaultAdmins();
+        write(STORE_ADMINS, list);
+      }
+      // Ensure CEO always exists
+      if (!list.some((a) => a.email === CEO_EMAIL && a.role === "ceo")) {
+        list = list.filter((a) => a.email !== CEO_EMAIL);
+        list.unshift({ email: CEO_EMAIL, password: CEO_PASS, role: "ceo", addedAt: new Date().toISOString() });
+        write(STORE_ADMINS, list);
+      }
+      return list;
     }
+    function saveAdmins(list) { write(STORE_ADMINS, list); }
 
+    function getSession() {
+      return localStorage.getItem(STORE_SESSION);
+    }
     function isAdmin() {
-      return localStorage.getItem(STORE_SESSION) === ADMIN_EMAIL;
+      const email = getSession();
+      if (!email) return false;
+      return getAdmins().some((a) => a.email === email);
     }
-
+    function isCeo() {
+      const email = getSession();
+      return email === CEO_EMAIL;
+    }
+    function currentAdmin() {
+      const email = getSession();
+      return getAdmins().find((a) => a.email === email) || null;
+    }
     function loginAdmin(email, password) {
-      if (email.trim().toLowerCase() === ADMIN_EMAIL && password === ADMIN_PASS) {
-        localStorage.setItem(STORE_SESSION, ADMIN_EMAIL);
+      const admins = getAdmins();
+      const a = admins.find(
+        (x) => x.email.toLowerCase() === email.trim().toLowerCase() && x.password === password
+      );
+      if (a) {
+        localStorage.setItem(STORE_SESSION, a.email);
         return true;
       }
       return false;
     }
-
     function logoutAdmin() {
       localStorage.removeItem(STORE_SESSION);
+    }
+
+    function buildClaimDns(domain, claimId) {
+      const slug = (claimId || uid()).replace(/[^a-z0-9]/gi, "").slice(0, 12).toLowerCase() || "user";
+      const target = slug + ".users." + DNS_EDGE;
+      if (domain.dns && domain.dns.includes("NS ")) {
+        return domain.dns + "\n# Claim ID: " + (claimId || "") + "\n# Point nameservers as above for automatic activation.";
+      }
+      return (
+        "CNAME  @  ->  " + target + "\n" +
+        "CNAME  www ->  " + target + "\n" +
+        "TTL  3600\n" +
+        "# Claim: " + (claimId || "") + "\n" +
+        "# Domain activates automatically after DNS propagation."
+      );
     }
 
     function claimDomain(domainId, person) {
       const domains = getDomains();
       const d = domains.find((x) => x.id === domainId);
       if (!d || d.status !== "available") return { ok: false, error: t("notAvail") };
+      const claimId = uid();
+      const issuedDns = buildClaimDns(d, claimId);
       d.status = "taken";
       d.claimedBy = person.name;
       d.claimedEmail = person.email;
       d.claimedAt = new Date().toISOString();
+      d.claimId = claimId;
+      d.issuedDns = issuedDns;
       saveDomains(domains);
       const claims = getClaims();
       claims.unshift({
-        id: uid(),
+        id: claimId,
         domainId: d.id,
         domain: d.name,
         name: person.name,
         email: person.email,
-        at: d.claimedAt
+        at: d.claimedAt,
+        type: d.type || "free",
+        price: d.price || 0,
+        issuedDns,
+        activation: "ready"
       });
       saveClaims(claims);
-      return { ok: true, domain: d };
+      return { ok: true, domain: d, claimId, issuedDns };
     }
 
     function addDomain(payload) {
@@ -1400,12 +1259,16 @@
       if (domains.some((d) => d.name.toLowerCase() === name)) {
         return { ok: false, error: t("alreadyListed") };
       }
+      const type = payload.type === "paid" ? "paid" : "free";
+      const price = type === "paid" ? Math.max(0, Number(payload.price) || 0) : 0;
       const item = {
         id: uid(),
         name,
         notes: payload.notes.trim() || t("defaultNotes"),
-        dns: payload.dns.trim() || "CNAME  @  ->  edge.hostly-dns.net\nCNAME  www ->  edge.hostly-dns.net",
-        status: "available"
+        dns: payload.dns.trim() || "CNAME  @  ->  " + DNS_EDGE + "\nCNAME  www ->  " + DNS_EDGE,
+        status: "available",
+        type,
+        price
       };
       domains.unshift(item);
       saveDomains(domains);
@@ -1415,7 +1278,6 @@
     function removeDomain(id) {
       saveDomains(getDomains().filter((d) => d.id !== id));
     }
-
     function releaseDomain(id) {
       const domains = getDomains();
       const d = domains.find((x) => x.id === id);
@@ -1424,20 +1286,44 @@
       delete d.claimedBy;
       delete d.claimedEmail;
       delete d.claimedAt;
+      delete d.claimId;
+      delete d.issuedDns;
       saveDomains(domains);
+    }
+
+    function addAdminUser(email, password) {
+      const admins = getAdmins();
+      const e = email.trim().toLowerCase();
+      if (admins.some((a) => a.email.toLowerCase() === e)) {
+        return { ok: false, error: t("adminExists") };
+      }
+      admins.push({
+        email: e,
+        password: password,
+        role: "admin",
+        addedAt: new Date().toISOString()
+      });
+      saveAdmins(admins);
+      return { ok: true };
+    }
+    function removeAdminUser(email) {
+      if (email === CEO_EMAIL) return { ok: false, error: t("cannotRemoveCeo") };
+      saveAdmins(getAdmins().filter((a) => a.email !== email));
+      return { ok: true };
     }
 
     function formatDate(iso) {
       if (!iso) return "—";
-      const d = new Date(iso);
-      return d.toLocaleString(getLang() === "ar" ? "ar" : "en");
+      return new Date(iso).toLocaleString(getLang() === "ar" ? "ar" : "en");
+    }
+    function isSubdomain(name) {
+      return (name.match(/\./g) || []).length >= 2;
     }
 
-    /* ========== ROUTING (no hash) ========== */
+    /* ========== ROUTING ========== */
     function showPage(name) {
       const allowed = ["home", "domains", "login", "admin"];
       if (!allowed.includes(name)) name = "home";
-
       if (name === "admin" && !isAdmin()) {
         showPage("login");
         return;
@@ -1446,32 +1332,34 @@
         showPage("admin");
         return;
       }
-
       currentPage = name;
       document.querySelectorAll(".page").forEach((p) => p.classList.remove("active"));
       const page = document.getElementById("page-" + name);
       if (page) page.classList.add("active");
-
       document.querySelectorAll("[data-nav]").forEach((el) => {
         el.classList.toggle("active", el.getAttribute("data-nav") === name);
       });
-
       if (name === "domains") renderDomains();
       if (name === "admin") refreshAdmin();
       updateTitle();
       window.scrollTo(0, 0);
     }
 
-    /* ========== LANG SWITCHER ========== */
-    const GLOBE_SVG = `
-      <svg viewBox="0 0 24 24" aria-hidden="true">
-        <circle cx="12" cy="12" r="9" stroke-width="1.5"/>
-        <ellipse cx="12" cy="12" rx="4" ry="9" stroke-width="1.5"/>
-        <path d="M3 12h18M12 3c2.5 2.8 2.5 15.2 0 18M12 3c-2.5 2.8-2.5 15.2 0 18" stroke-width="1.5"/>
-      </svg>`;
+    function updateAdminVisibility() {
+      const admin = isAdmin();
+      const ceo = isCeo();
+      document.querySelectorAll(".admin-only").forEach((el) => {
+        el.classList.toggle("show-admin", admin);
+      });
+      document.querySelectorAll(".ceo-only").forEach((el) => {
+        el.classList.toggle("show-ceo", ceo);
+      });
+    }
 
-    const FLAG_US = `<span class="flag" aria-hidden="true"><svg viewBox="0 0 22 16" xmlns="http://www.w3.org/2000/svg"><rect width="22" height="16" fill="#B22234"/><path d="M0 1.23h22M0 3.69h22M0 6.15h22M0 8.62h22M0 11.08h22M0 13.54h22" stroke="#fff" stroke-width="1.23"/><rect width="8.8" height="8.55" fill="#3C3B6E"/><g fill="#fff"><circle cx="1.1" cy="1.1" r="0.35"/><circle cx="2.75" cy="1.1" r="0.35"/><circle cx="4.4" cy="1.1" r="0.35"/><circle cx="6.05" cy="1.1" r="0.35"/><circle cx="7.7" cy="1.1" r="0.35"/><circle cx="1.9" cy="2.1" r="0.35"/><circle cx="3.55" cy="2.1" r="0.35"/><circle cx="5.2" cy="2.1" r="0.35"/><circle cx="6.85" cy="2.1" r="0.35"/><circle cx="1.1" cy="3.1" r="0.35"/><circle cx="2.75" cy="3.1" r="0.35"/><circle cx="4.4" cy="3.1" r="0.35"/><circle cx="6.05" cy="3.1" r="0.35"/><circle cx="7.7" cy="3.1" r="0.35"/><circle cx="1.9" cy="4.1" r="0.35"/><circle cx="3.55" cy="4.1" r="0.35"/><circle cx="5.2" cy="4.1" r="0.35"/><circle cx="6.85" cy="4.1" r="0.35"/><circle cx="1.1" cy="5.1" r="0.35"/><circle cx="2.75" cy="5.1" r="0.35"/><circle cx="4.4" cy="5.1" r="0.35"/><circle cx="6.05" cy="5.1" r="0.35"/><circle cx="7.7" cy="5.1" r="0.35"/><circle cx="1.9" cy="6.1" r="0.35"/><circle cx="3.55" cy="6.1" r="0.35"/><circle cx="5.2" cy="6.1" r="0.35"/><circle cx="6.85" cy="6.1" r="0.35"/><circle cx="1.1" cy="7.1" r="0.35"/><circle cx="2.75" cy="7.1" r="0.35"/><circle cx="4.4" cy="7.1" r="0.35"/><circle cx="6.05" cy="7.1" r="0.35"/><circle cx="7.7" cy="7.1" r="0.35"/></g></svg></span>`;
-    const FLAG_SA = `<span class="flag" aria-hidden="true"><svg viewBox="0 0 22 16" xmlns="http://www.w3.org/2000/svg"><rect width="22" height="16" fill="#006C35"/><text x="11" y="7.2" text-anchor="middle" fill="#fff" font-size="3.2" font-family="Arial,sans-serif" font-weight="700">لا إله إلا الله</text><text x="11" y="10.2" text-anchor="middle" fill="#fff" font-size="2.2" font-family="Arial,sans-serif">محمد رسول الله</text><path d="M5 12.5h12" stroke="#fff" stroke-width="0.9" stroke-linecap="round"/><path d="M15.5 11.8l1.2 0.7-1.2 0.7" fill="#fff"/></svg></span>`;
+    /* ========== LANG SWITCHER ========== */
+    const GLOBE_SVG = `<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9" stroke-width="1.5"/><ellipse cx="12" cy="12" rx="4" ry="9" stroke-width="1.5"/><path d="M3 12h18M12 3c2.5 2.8 2.5 15.2 0 18M12 3c-2.5 2.8-2.5 15.2 0 18" stroke-width="1.5"/></svg>`;
+    const FLAG_US = `<span class="flag" aria-hidden="true"><svg viewBox="0 0 22 16" xmlns="http://www.w3.org/2000/svg"><rect width="22" height="16" fill="#B22234"/><path d="M0 1.23h22M0 3.69h22M0 6.15h22M0 8.62h22M0 11.08h22M0 13.54h22" stroke="#fff" stroke-width="1.23"/><rect width="8.8" height="8.55" fill="#3C3B6E"/></svg></span>`;
+    const FLAG_SA = `<span class="flag" aria-hidden="true"><svg viewBox="0 0 22 16" xmlns="http://www.w3.org/2000/svg"><rect width="22" height="16" fill="#006C35"/><text x="11" y="9" text-anchor="middle" fill="#fff" font-size="5" font-family="Arial" font-weight="700">SA</text></svg></span>`;
 
     function mountLangSwitcher() {
       const nav = document.querySelector(".nav-links");
@@ -1505,29 +1393,36 @@
       const empty = document.getElementById("empty");
       const search = document.getElementById("search");
       const filter = document.getElementById("filter");
+      const filterType = document.getElementById("filterType");
       if (!grid) return;
-
       const q = (search.value || "").trim().toLowerCase();
       const f = filter.value;
+      const ft = filterType ? filterType.value : "all";
       const items = getDomains().filter((d) => {
         const matchQ = d.name.toLowerCase().includes(q);
         const matchF = f === "all" || d.status === f;
-        return matchQ && matchF;
+        const matchT = ft === "all" || (d.type || "free") === ft;
+        return matchQ && matchF && matchT;
       });
-
       grid.innerHTML = "";
       empty.hidden = items.length > 0;
-
       items.forEach((d) => {
         const card = document.createElement("article");
         card.className = "domain-card";
         const available = d.status === "available";
+        const isFree = (d.type || "free") === "free";
+        const sub = isSubdomain(d.name);
         card.innerHTML = `
           <div class="domain-top">
             <div class="domain-name">${d.name}</div>
             <span class="badge ${available ? "badge-ok" : "badge-taken"}">${available ? t("available") : t("claimed")}</span>
           </div>
+          <div style="display:flex;gap:6px;flex-wrap:wrap;">
+            <span class="badge ${isFree ? "badge-free" : "badge-paid"}">${isFree ? t("free") : t("paid")}</span>
+            ${sub ? `<span class="badge badge-sub">Subdomain</span>` : ""}
+          </div>
           <p class="domain-meta">${d.notes || ""}</p>
+          ${!isFree && available ? `<div class="domain-price">$${Number(d.price || 0).toFixed(0)}</div>` : isFree && available ? `<div class="domain-price">${t("free")}</div>` : ""}
           ${available
             ? `<button class="btn btn-primary" data-id="${d.id}">${t("requestBtn")}</button>`
             : `<p class="domain-meta">${t("claimedBy")}${d.claimedBy ? " " + d.claimedBy : ""}.</p>`}
@@ -1536,56 +1431,99 @@
       });
     }
 
-    /* ========== ADMIN PAGE ========== */
+    /* ========== ADMIN ========== */
     function refreshAdmin() {
       const domains = getDomains();
       const claims = getClaims();
+      const avail = domains.filter((d) => d.status === "available");
+      const taken = domains.filter((d) => d.status === "taken");
+      const freeAvail = avail.filter((d) => (d.type || "free") === "free").length;
+      const paidAvail = avail.filter((d) => d.type === "paid").length;
+      const paidTaken = taken.filter((d) => d.type === "paid");
+      const revenue = paidTaken.reduce((s, d) => s + (Number(d.price) || 0), 0);
+      const subCount = domains.filter((d) => isSubdomain(d.name)).length;
+
       document.getElementById("vVisits").textContent = getVisits();
       document.getElementById("vTotal").textContent = domains.length;
-      document.getElementById("vAvail").textContent = domains.filter(d => d.status === "available").length;
-      document.getElementById("vTaken").textContent = domains.filter(d => d.status === "taken").length;
+      document.getElementById("vSubHint").textContent = subCount ? subCount + " " + t("subdomains") : "";
+      document.getElementById("vAvail").textContent = avail.length;
+      document.getElementById("vFreePaid").textContent =
+        freeAvail + " " + t("freeLabel") + " · " + paidAvail + " " + t("paidLabel");
+      document.getElementById("vTaken").textContent = taken.length;
+      document.getElementById("vRevenue").textContent =
+        paidTaken.length ? paidTaken.length + " " + t("revenueHint") + (revenue ? " · $" + revenue : "") : "";
 
-      document.getElementById("invBody").innerHTML = domains.map((d) => `
-        <tr>
-          <td><strong>${d.name}</strong></td>
-          <td><span class="badge ${d.status === "available" ? "badge-ok" : "badge-taken"}">${d.status === "available" ? t("available") : t("claimed")}</span></td>
-          <td>${d.claimedBy ? `${d.claimedBy}<br><span style="color:var(--muted)">${d.claimedEmail || ""}</span>` : "—"}</td>
-          <td>${formatDate(d.claimedAt)}</td>
-          <td style="white-space:nowrap;">
-            ${d.status === "taken" ? `<button class="btn btn-ghost btn-sm" data-release="${d.id}">${t("release")}</button>` : ""}
-            <button class="btn btn-danger btn-sm" data-del="${d.id}">${t("remove")}</button>
-          </td>
-        </tr>
-      `).join("") || `<tr><td colspan="5">${t("noDomains")}</td></tr>`;
+      document.getElementById("invBody").innerHTML =
+        domains
+          .map((d) => {
+            const isFree = (d.type || "free") === "free";
+            return `
+          <tr>
+            <td><strong>${d.name}</strong>${isSubdomain(d.name) ? ' <span class="badge badge-sub">Sub</span>' : ""}</td>
+            <td><span class="badge ${isFree ? "badge-free" : "badge-paid"}">${isFree ? t("free") : t("paid") + (d.price ? " $" + d.price : "")}</span></td>
+            <td><span class="badge ${d.status === "available" ? "badge-ok" : "badge-taken"}">${d.status === "available" ? t("available") : t("claimed")}</span></td>
+            <td>${d.claimedBy ? `${d.claimedBy}<br><span style="color:var(--muted)">${d.claimedEmail || ""}</span>` : "—"}</td>
+            <td>${formatDate(d.claimedAt)}</td>
+            <td style="white-space:nowrap;">
+              ${d.status === "taken" ? `<button class="btn btn-ghost btn-sm" data-release="${d.id}">${t("release")}</button>` : ""}
+              <button class="btn btn-danger btn-sm" data-del="${d.id}">${t("remove")}</button>
+            </td>
+          </tr>`;
+          })
+          .join("") || `<tr><td colspan="6">${t("noDomains")}</td></tr>`;
 
-      document.getElementById("claimBody").innerHTML = claims.map((c) => `
-        <tr>
-          <td>${c.domain}</td>
-          <td>${c.name}</td>
-          <td>${c.email}</td>
-          <td>${formatDate(c.at)}</td>
-        </tr>
-      `).join("") || `<tr><td colspan="4">${t("noClaims")}</td></tr>`;
+      document.getElementById("claimBody").innerHTML =
+        claims
+          .map(
+            (c) => `
+          <tr>
+            <td>${c.domain}</td>
+            <td>${c.name}</td>
+            <td>${c.email}</td>
+            <td><span class="badge ${(c.type || "free") === "free" ? "badge-free" : "badge-paid"}">${(c.type || "free") === "free" ? t("free") : t("paid")}</span></td>
+            <td>${formatDate(c.at)}</td>
+            <td><span class="badge badge-ok">${t("activationReady")}</span></td>
+          </tr>`
+          )
+          .join("") || `<tr><td colspan="6">${t("noClaims")}</td></tr>`;
+
+      if (isCeo()) {
+        const admins = getAdmins();
+        document.getElementById("teamBody").innerHTML = admins
+          .map((a) => {
+            const isCeoRow = a.role === "ceo" || a.email === CEO_EMAIL;
+            return `
+            <tr>
+              <td>${a.email}</td>
+              <td><span class="role-badge ${isCeoRow ? "ceo" : ""}">${isCeoRow ? t("roleCeo") : t("roleAdmin")}</span></td>
+              <td>${formatDate(a.addedAt)}</td>
+              <td>${
+                isCeoRow
+                  ? "—"
+                  : `<button class="btn btn-danger btn-sm" data-rm-admin="${a.email}">${t("remove")}</button>`
+              }</td>
+            </tr>`;
+          })
+          .join("");
+      }
+      updateAdminVisibility();
     }
 
     /* ========== INIT ========== */
     document.addEventListener("DOMContentLoaded", () => {
       bumpVisits();
-      document.querySelectorAll(".admin-only").forEach((el) => {
-        if (isAdmin()) el.classList.add("show-admin");
-      });
+      getAdmins();
+      updateAdminVisibility();
       mountLangSwitcher();
       applyLang();
       showPage("home");
 
-      // Nav clicks (no hash)
       document.querySelectorAll("[data-nav]").forEach((el) => {
         el.addEventListener("click", (e) => {
           e.preventDefault();
           showPage(el.getAttribute("data-nav"));
         });
       });
-
       document.querySelectorAll("[data-scroll]").forEach((el) => {
         el.addEventListener("click", (e) => {
           e.preventDefault();
@@ -1609,14 +1547,24 @@
         if (document.getElementById("page-admin").classList.contains("active")) refreshAdmin();
       });
 
-      // Search / filter
       document.getElementById("search").addEventListener("input", renderDomains);
       document.getElementById("filter").addEventListener("change", renderDomains);
+      document.getElementById("filterType").addEventListener("change", renderDomains);
 
-      // Modal
+      // Panel tabs
+      document.querySelectorAll(".panel-tab").forEach((tab) => {
+        tab.addEventListener("click", () => {
+          document.querySelectorAll(".panel-tab").forEach((t) => t.classList.remove("active"));
+          document.querySelectorAll(".tab-pane").forEach((p) => p.classList.remove("active"));
+          tab.classList.add("active");
+          const pane = document.getElementById("tab-" + tab.dataset.tab);
+          if (pane) pane.classList.add("active");
+        });
+      });
+
+      // Modal claim
       const modal = document.getElementById("modal");
       const grid = document.getElementById("grid");
-
       grid.addEventListener("click", (e) => {
         const btn = e.target.closest("button[data-id]");
         if (!btn) return;
@@ -1632,7 +1580,6 @@
         document.getElementById("personEmail").value = "";
         modal.classList.add("open");
       });
-
       document.getElementById("cancelBtn").onclick = () => modal.classList.remove("open");
       document.getElementById("doneBtn").onclick = () => {
         modal.classList.remove("open");
@@ -1655,8 +1602,25 @@
         }
         document.getElementById("claimForm").hidden = true;
         document.getElementById("successBox").hidden = false;
-        document.getElementById("dnsOut").textContent =
-          "Domain: " + result.domain.name + "\n\n" + result.domain.dns;
+        const isPaid = (result.domain.type || "free") === "paid";
+        document.getElementById("successMsg").textContent = isPaid ? t("reservedPaid") : t("reserved");
+        const dnsOut = document.getElementById("dnsOut");
+        const text =
+          "Domain: " + result.domain.name + "\n\n" + (result.issuedDns || result.domain.dns);
+        dnsOut.innerHTML =
+          '<button type="button" class="copy-btn" id="copyDns">' +
+          t("copy") +
+          "</button>" +
+          text.replace(/</g, "&lt;");
+        document.getElementById("copyDns").onclick = () => {
+          navigator.clipboard.writeText(text).then(() => {
+            document.getElementById("copyDns").textContent = "✓";
+            setTimeout(() => {
+              const b = document.getElementById("copyDns");
+              if (b) b.textContent = t("copy");
+            }, 1500);
+          });
+        };
       });
 
       // Login
@@ -1665,7 +1629,7 @@
         const email = document.getElementById("email").value;
         const password = document.getElementById("password").value;
         if (loginAdmin(email, password)) {
-          document.querySelectorAll(".admin-only").forEach((el) => el.classList.add("show-admin"));
+          updateAdminVisibility();
           showPage("admin");
         } else {
           document.getElementById("loginAlert").innerHTML =
@@ -1673,14 +1637,12 @@
         }
       });
 
-      // Logout
       document.getElementById("logoutBtn").onclick = () => {
         logoutAdmin();
-        document.querySelectorAll(".admin-only").forEach((el) => el.classList.remove("show-admin"));
+        updateAdminVisibility();
         showPage("home");
       };
 
-      // Admin inventory actions
       document.getElementById("invBody").addEventListener("click", (e) => {
         const del = e.target.closest("[data-del]");
         const rel = e.target.closest("[data-release]");
@@ -1694,13 +1656,14 @@
         }
       });
 
-      // Add domain
       document.getElementById("addForm").addEventListener("submit", (e) => {
         e.preventDefault();
         const result = addDomain({
           name: document.getElementById("newName").value,
           notes: document.getElementById("newNotes").value,
-          dns: document.getElementById("newDns").value
+          dns: document.getElementById("newDns").value,
+          type: document.getElementById("newType").value,
+          price: document.getElementById("newPrice").value
         });
         const box = document.getElementById("addAlert");
         if (!result.ok) {
@@ -1709,7 +1672,33 @@
         }
         box.innerHTML = `<div class="alert alert-ok">${result.domain.name} ${t("nowPublic")}</div>`;
         e.target.reset();
+        document.getElementById("newPrice").value = "0";
         refreshAdmin();
+      });
+
+      // Team (CEO)
+      document.getElementById("addAdminForm").addEventListener("submit", (e) => {
+        e.preventDefault();
+        if (!isCeo()) return;
+        const result = addAdminUser(
+          document.getElementById("adminEmail").value,
+          document.getElementById("adminPass").value
+        );
+        const box = document.getElementById("adminAlert");
+        if (!result.ok) {
+          box.innerHTML = `<div class="alert alert-error">${result.error}</div>`;
+          return;
+        }
+        box.innerHTML = `<div class="alert alert-ok">${t("adminAdded")}</div>`;
+        e.target.reset();
+        refreshAdmin();
+      });
+      document.getElementById("teamBody").addEventListener("click", (e) => {
+        const btn = e.target.closest("[data-rm-admin]");
+        if (!btn || !isCeo()) return;
+        const r = removeAdminUser(btn.dataset.rmAdmin);
+        if (r.ok) refreshAdmin();
+        else alert(r.error);
       });
     });
   </script>
